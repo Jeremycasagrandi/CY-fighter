@@ -7,7 +7,7 @@ int main(){
     scanf("%s",metier);
     printf("votre métier est : %s",metier);
     
-uhuhuhu
+
     return 0;
 }
 
