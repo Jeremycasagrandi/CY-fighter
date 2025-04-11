@@ -1,11 +1,10 @@
 all: exec
-fichier1.o: fichier1.c fichier1.h
-	gcc -c fichier1.c -o fichier1.o
-main.o: main.c fichier1.h
+test.o: test.c 
+	gcc -c test.c -o test.o
+main.o: main.c test.h
 	gcc -c main.c -o main.o
-exec: main.o fichier1.o
-	gcc main.o fichier1.o -o exec
-&&&&
+exec: main.o test.o
+	gcc main.o test.o -o exec
 clean:
 	rm exec
 	rm *.o
