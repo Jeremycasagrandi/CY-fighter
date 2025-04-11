@@ -6,6 +6,7 @@ int main(){
     char metier[50];
     scanf("%s",metier);
     printf("votre métier est : %s",metier);
+    fjhlhdbjh;
 
     return 0;
 }
