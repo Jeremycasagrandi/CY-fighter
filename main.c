@@ -3,11 +3,7 @@
 
 
 
-int main (){
-    Perso perso1;
-    perso1=creationperso();
-    afficherPerso(perso1);
-}
+
 
 void afficherMenu() {
     printf("=== MENU PRINCIPAL ===\n");
@@ -25,11 +21,11 @@ int menu() {
 
         switch (choix) {
             case 1:
-                multijoueur();
+                //multijoueur();
                 
                 break;
             case 2:
-                campagne();
+                //campagne();
                 
                 break;
 
@@ -50,4 +46,11 @@ void afficherPerso(Perso p) {
     printf("Agilité        : %d\n", p.agilite);
     printf("Vitesse        : %d\n", p.vitesse);
     printf("----------------------------------\n");
+}
+
+int main (){
+    Perso perso1;
+    perso1=creationperso();
+    afficherPerso(perso1);
+    menu();
 }
