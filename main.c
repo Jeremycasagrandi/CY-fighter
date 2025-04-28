@@ -32,7 +32,7 @@ int menu() {
             default:
                 printf("Choix invalide. \n");
         }
-    } while (choix != 0);
+    } while (choix == 1 && choix ==2);
 
     return 0;
 }
