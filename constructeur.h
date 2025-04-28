@@ -1,28 +1,37 @@
 #include <stdio.h>
 
 typedef struct {
+    char nom[20];
+} Ult;
+
+typedef struct {
     char nom [50];
 
     int pdv;         
     int pdv_max;    
-    int attaque;
+    int attaque; 
     int defense;
     int agilite;
     int vitesse;
+    Ult capacité;
 } Perso;
 
-typedef struct{
-    
-}Equipe;
-Perso creationperso();
-void afficherPerso(Perso p);
+
 
 typedef struct {
-    char nom[20];
-    Perso membres[3]; 
+    Perso membres[3];
+    char nom[50];
 } Equipe;
 
 typedef struct {
-    char nom[20];
-}Ult;
+    Equipe equipe1;
+    Equipe equipe2;
+    
+    
+} Jeu;
+
+
+
+void afficherPerso(Perso p);
+
 

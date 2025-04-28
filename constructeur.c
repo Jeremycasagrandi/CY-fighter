@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "personnage.h"
+#include "constructeur.h"
+
 
 Perso creationperso() {
     int choix;

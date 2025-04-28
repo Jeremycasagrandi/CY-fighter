@@ -1,12 +1,12 @@
 all: exec
-personnage.o: personnage.c 
-	gcc -c personnage.c -o personnage.o
+constructeur.o: constructeur.c 
+	gcc -c constructeur.c -o constructeur.o
 
 main.o: main.c 
 	gcc -c main.c -o main.o
 
-exec: main.o personnage.o
-	gcc main.o personnage.o  -o exec
+exec: main.o constructeur.o
+	gcc main.o constructeur.o  -o exec
 clean:
 	rm exec
 	rm *.o
