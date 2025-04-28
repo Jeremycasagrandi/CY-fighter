@@ -9,6 +9,37 @@ int main (){
     afficherPerso(perso1);
 }
 
+void afficherMenu() {
+    printf("=== MENU PRINCIPAL ===\n");
+    printf("1. Multijoueur\n");
+    printf("2. Campagne\n");
+    printf("Votre choix : ");
+}
+
+int menu() {
+    int choix;
+
+    do {
+        afficherMenu();
+        scanf("%d", &choix);
+
+        switch (choix) {
+            case 1:
+                multijoueur();
+                
+                break;
+            case 2:
+                campagne();
+                
+                break;
+
+            default:
+                printf("Choix invalide. \n");
+        }
+    } while (choix != 0);
+
+    return 0;
+}
 
 
 void afficherPerso(Perso p) {
