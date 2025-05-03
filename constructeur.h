@@ -1,3 +1,5 @@
+#ifndef CONSTRUCTEUR_H
+#define CONSTRUCTEUR_H
 #include <stdio.h>
 
 typedef struct {
@@ -13,7 +15,7 @@ typedef struct {
     int defense;
     int agilite;
     int vitesse;
-    Ult capacité;
+    Ult capacite;
 } Perso;
 
 
@@ -31,7 +33,8 @@ typedef struct {
 } Jeu;
 
 
-
+Perso creationperso();
 void afficherPerso(Perso p);
+#endif
 
 
