@@ -6,5 +6,5 @@
 void afficherMenu();
 int menu();
 void afficherPerso(Perso p);
-
+void afficherEquipe(Equipe *equipe, char *titre);
 #endif

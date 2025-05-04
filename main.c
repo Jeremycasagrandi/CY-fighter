@@ -4,8 +4,7 @@
 #include "jeu.h"
 
 int main() {
-    Perso perso1 = creationperso();  
-    afficherPerso(perso1);
+
 
     int choix = menu();
 }

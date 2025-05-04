@@ -35,27 +35,4 @@ void chargerPersos(Perso persos[], const char* nomFichier, int *nb) {
 }
 
 
-Perso creationperso() {
-    Perso persos[12];
-    int nbPersos;
-    chargerPersos(persos, "persos.txt", &nbPersos);  
 
-    if (nbPersos == 0) {
-        printf("Aucun personnage disponible.\n");
-        exit(1);
-    }
-
-    printf("Choisissez votre perso parmi les suivants :\n");
-    for (int i = 0; i < nbPersos; i++) {
-        printf("%d. ", i);
-        afficherPerso(persos[i]);
-    }
-
-    int choix;
-    do {
-        printf("Choisir perso (0 à %d) : ", nbPersos - 1);
-        scanf(" %d", &choix);
-    } while (choix < 0 || choix >= nbPersos);
-
-    return persos[choix];
-}

@@ -20,3 +20,37 @@ void afficherPerso(Perso p) {
     printf("Vitesse       : %d\n", p.vitesse);
     printf("----------------------------------\n");
 }
+
+void afficherEquipe(Equipe *equipe, char *titre) {
+    printf("\n--- %s : %s ---\n", titre, equipe->nom);
+
+    for (int i = 0; i < 3; i++) {
+        printf("%s ", equipe->membres[i].nom);
+    }
+    printf("\n");
+
+    for (int i = 0; i < 3; i++) {
+        printf("PDV: %d ", equipe->membres[i].pdv_max);
+    }
+    printf("\n");
+
+    for (int i = 0; i < 3; i++) {
+        printf("ATK: %d ", equipe->membres[i].attaque);
+    }
+    printf("\n");
+
+    for (int i = 0; i < 3; i++) {
+        printf("DEF: %d ", equipe->membres[i].defense);
+    }
+    printf("\n");
+
+    for (int i = 0; i < 3; i++) {
+        printf("VIT: %d ", equipe->membres[i].vitesse);
+    }
+    printf("\n");
+
+    for (int i = 0; i < 3; i++) {
+        printf("AGI: %d ", equipe->membres[i].agilite);
+    }
+    printf("\n");
+}
