@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "constructeur.h": "c"
+        "constructeur.h": "c",
+        "stdio.h": "c"
     }
 }

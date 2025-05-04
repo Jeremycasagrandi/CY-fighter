@@ -1,12 +1,15 @@
 #ifndef CONSTRUCTEUR_H
 #define CONSTRUCTEUR_H
 #include <stdio.h>
+#define MAX_PERSOS 20
+
 
 typedef struct {
     char nom[20];
 } Ult;
 
 typedef struct {
+    int id;
     char nom [50];
 
     int pdv;         
@@ -34,6 +37,8 @@ typedef struct {
 
 
 Perso creationperso();
+void chargerPersos(Perso persos[], const char* nomFichier, int *nb);
+
 void afficherPerso(Perso p);
 #endif
 

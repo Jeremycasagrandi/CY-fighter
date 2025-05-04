@@ -9,27 +9,6 @@ void afficherMenu() {
     printf("Votre choix : ");
 }
 
-int menu() {
-    int choix;
-
-    do {
-        afficherMenu();
-        scanf("%d", &choix);
-
-        switch (choix) {
-            case 1:
-                //multijoueur();
-                break;
-            case 2:
-                //campagne();
-                break;
-            default:
-                printf("Choix invalide.\n");
-        }
-    } while (choix != 1 && choix != 2);  
-
-    return choix;
-}
 
 void afficherPerso(Perso p) {
     printf("\n--- Statistiques du personnage ---\n");
