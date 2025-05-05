@@ -18,6 +18,7 @@ typedef struct {
     int defense;
     int agilite;
     int vitesse;
+    int vitesse_max;
     Ult capacite;
 } Perso;
 

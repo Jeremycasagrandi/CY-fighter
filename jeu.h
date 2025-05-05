@@ -2,7 +2,11 @@
 #define JEU_H
 
 #include "constructeur.h"  
-int menu();
-void multijoueur();
+Jeu menu();
+Jeu multijoueur();
+int tour();
+void debut();
+
+
 
 #endif

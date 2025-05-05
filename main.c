@@ -5,6 +5,10 @@
 
 int main() {
 
-
-    int choix = menu();
+    
+    Jeu jeu = menu();
+    printf("%d",tour(&jeu));
+    printf("%d",tour(&jeu));
+    printf("%d",tour(&jeu));
+    printf("%d",tour(&jeu));
 }

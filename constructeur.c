@@ -27,6 +27,7 @@ void chargerPersos(Perso persos[], const char* nomFichier, int *nb) {
         persos[i].defense = defense;
         persos[i].agilite = agilite;
         persos[i].vitesse = vitesse;
+        persos[i].vitesse_max = vitesse;
         i++;
     }
 

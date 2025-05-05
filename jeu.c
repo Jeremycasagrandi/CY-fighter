@@ -4,8 +4,9 @@
 #include "afficher.h"
 #include "constructeur.h"
 
-int menu() {
+Jeu menu() {
     int choix;
+    Jeu jeu;
 
     do {
         afficherMenu();
@@ -13,7 +14,7 @@ int menu() {
 
         switch (choix) {
             case 1:
-                multijoueur();  // Appel de la fonction multijoueur
+                jeu=multijoueur();  // Appel de la fonction multijoueur
                 break;
             case 2:
                 //campagne();
@@ -22,8 +23,8 @@ int menu() {
                 printf("Choix invalide.\n");
         }
     } while (choix != 1 && choix != 2);
-
-    return choix;
+    return jeu;
+    
 }
 
 Equipe choixPersonnage(int n) {
@@ -98,7 +99,7 @@ void choixEquipe(Equipe *equipe, int numeroEquipe) {
     }
 }
 
-void multijoueur() {
+Jeu multijoueur() {
     int choixJ1;
     int choixJ2;
 
@@ -123,8 +124,40 @@ void multijoueur() {
     // création des équipes
     Equipe equipe1 = choixPersonnage(choixJ1);
     Equipe equipe2 = choixPersonnage(choixJ2);
-
+    Jeu jeu;
+    jeu.equipe1=equipe1;
+    jeu.equipe2=equipe2;
+   
     // Affichage des équipes sélectionnées
+
     afficherEquipe(&equipe1, "Équipe Joueur 1");
+  
     afficherEquipe(&equipe2, "Équipe Joueur 2");
+    return jeu;
 }
+
+
+
+int tour(Jeu* jeu) {
+    
+    while (1) {
+        for (int i = 0; i < 3; i++) {
+            // Vérification pour l'équipe 1
+            
+            jeu->equipe1.membres[i].vitesse--;
+            if (jeu->equipe1.membres[i].vitesse <= 0) {
+                jeu->equipe1.membres[i].vitesse = jeu->equipe1.membres[i].vitesse_max;
+                return i;  // Retourner le joueur de l'équipe 1
+            }
+
+            // Vérification pour l'équipe 2
+            
+            jeu->equipe2.membres[i].vitesse--;
+            if (jeu->equipe2.membres[i].vitesse <= 0) {
+                jeu->equipe2.membres[i].vitesse = jeu->equipe2.membres[i].vitesse_max;
+                return i + 3;  // Retourner le joueur de l'équipe 2
+            }
+        }
+    }
+}
+

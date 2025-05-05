@@ -4,7 +4,7 @@
 #include "constructeur.h"
 
 void afficherMenu();
-int menu();
+Jeu menu();
 void afficherPerso(Perso p);
 void afficherEquipe(Equipe *equipe, char *titre);
 #endif
