@@ -1,5 +1,5 @@
-0 Pasteque  30 10 8 6 4
-1 Noix_de_coco  32 9 9 5 3
+0 Pasteque 30 10 8 6 4
+1 Noix_de_coco 32 9 9 5 3
 2 Litchi 26 12 7 9 5
 3 Citron 25 13 6 8 6
 4 Prune 22 8 5 10 5

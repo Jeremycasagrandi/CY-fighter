@@ -54,3 +54,17 @@ void afficherEquipe(Equipe *equipe, char *titre) {
     }
     printf("\n");
 }
+
+void afficherCapacite(int n, Ult capacites[], int nbCapacites) {
+    
+    for (int i = 0; i < nbCapacites; i++) {
+        if (capacites[i].id == n) {
+            
+            printf("Nom: %s\n", capacites[i].nom);
+            printf("Description: %s\n", capacites[i].description);
+            printf("Durée de l'effet: %d tours\n", capacites[i].duree_effet);
+            printf("Recharge: %d tours\n", capacites[i].cooldown);
+            return;  
+        }
+    }
+}

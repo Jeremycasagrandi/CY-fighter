@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+
 #include "jeu.h"
 #include "afficher.h"
 #include "constructeur.h"
@@ -29,13 +31,14 @@ Jeu menu() {
 
 Equipe choixPersonnage(int n) {
     Perso persos[MAX_PERSOS];
-    int nb;
+    Ult capacites[MAX_CAPACITES]; 
+    int nbPersos, nbCapacites;
 
-    chargerPersos(persos, "persos.txt", &nb);
+    chargerPersos(persos, capacites, "persos.txt", "capacites.txt", &nbPersos, &nbCapacites);
 
     int debut;
     int fin;
-    // Il
+    // Pour choix entre fruit et légume
     if (n == 1) {
         debut = 0;
         fin = 6;
@@ -54,6 +57,16 @@ Equipe choixPersonnage(int n) {
         printf("%d. ", i - debut); 
         afficherPerso(persos[i]);
     }
+    char c;
+    do {
+        printf("Voulez vous voir les capacités? ");
+        scanf(" %c", &c);
+        if (c=='o'){
+            for (int i = debut; i < fin; i++) {
+                afficherCapacite(persos[i].capacite.id, capacites, nbCapacites);
+            }
+        }
+    } while (c != 'n' && c!='o');
 
     Equipe eq;
     int pris[6] ;  // Pour vérifier si un personnage est déjà pris
@@ -158,6 +171,50 @@ int tour(Jeu* jeu) {
                 return i + 3;  // Retourner le joueur de l'équipe 2
             }
         }
+    }
+}
+
+void choisirAction(Jeu* jeu, int indexEquipe) {
+    int choix;
+    Equipe* equipeJoueur;
+    
+    
+    if (indexEquipe < 3) { //les 3 joueurs de la même équipe jouent
+        equipeJoueur = &jeu->equipe1;
+    } else {
+        equipeJoueur = &jeu->equipe2;
+        indexEquipe -= 3;  
+    }
+
+    
+    Perso* perso = &equipeJoueur->membres[indexEquipe];
+
+    printf("\nC'est au tour de %s !\n", perso->nom);
+    //effet_special()
+    printf("1. Attaquer\n");
+    printf("2. Utiliser capacité ultime\n");
+   
+    
+    
+    do {
+        printf("Choisissez une action (1, 2 ou 3) : ");
+        scanf("%d", &choix);
+    } while (choix < 1 || choix > 3);  
+    switch (choix) {
+        case 1:  // Attaque
+            printf("%s attaque un membre de l'équipe adverse !\n", perso->nom);
+            // attaque()
+            break;
+        
+        case 2:  // Utiliser capacité ultime
+            printf("%s utilise sa capacité ultime !\n", perso->nom);
+            // ult()
+            break;
+        
+        
+        default:
+            printf("Choix invalide.\n");
+            break;
     }
 }
 

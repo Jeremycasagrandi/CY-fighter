@@ -2,11 +2,16 @@
 #define CONSTRUCTEUR_H
 #include <stdio.h>
 #define MAX_PERSOS 20
-
+#define MAX_CAPACITES 20
 
 typedef struct {
-    char nom[20];
+    int id;
+    char nom[50];
+    char description[200];
+    int duree_effet;    
+    int cooldown;      
 } Ult;
+
 
 typedef struct {
     int id;
@@ -38,9 +43,10 @@ typedef struct {
 
 
 Perso creationperso();
-void chargerPersos(Perso persos[], const char* nomFichier, int *nb);
+void chargerPersos(Perso persos[], Ult capacites[], const char* nomFichierPersos, const char* nomFichierCapacites, int *nbPersos, int *nbCapacites);
 
 void afficherPerso(Perso p);
+void afficherCapacite(int n, Ult capacites[], int nbCapacites);
 #endif
 
 

@@ -6,7 +6,7 @@ Jeu menu();
 Jeu multijoueur();
 int tour();
 void debut();
-
+void choisirAction(Jeu* jeu, int indexEquipe);
 
 
 #endif

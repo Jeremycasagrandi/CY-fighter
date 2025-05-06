@@ -4,23 +4,50 @@
 #include <errno.h>
 #include "constructeur.h"
 
-void chargerPersos(Perso persos[], const char* nomFichier, int *nb) {
-    FILE* fichier = fopen(nomFichier, "r");
-    if (fichier == NULL) {
-        printf("Erreur ouverture fichier %s\n", nomFichier);
+void chargerPersos(Perso persos[], Ult capacites[], const char* nomFichierPersos, const char* nomFichierCapacites, int *nbPersos, int *nbCapacites) {
+    FILE* fichierPersos = fopen(nomFichierPersos, "r");
+    if (fichierPersos == NULL) {
+        printf("Erreur ouverture fichier %s\n", nomFichierPersos);
         printf("Code erreur = %d\n", errno);
         printf("Message = %s\n", strerror(errno));
         exit(1);
     }
 
-    int id, pdv_max, attaque, defense, agilite, vitesse;
-    char nom[50];
-    int i = 0;
+    FILE* fichierCapacites = fopen(nomFichierCapacites, "r");
+    if (fichierCapacites == NULL) {
+        printf("Erreur ouverture fichier %s\n", nomFichierCapacites);
+        printf("Code erreur = %d\n", errno);
+        printf("Message = %s\n", strerror(errno));
+        exit(1);
+    }
 
-    while (fscanf(fichier, "%d %s %d %d %d %d %d",
-                  &id, nom, &pdv_max, &attaque, &defense, &agilite, &vitesse) == 7) {
-        persos[i].id = id;
-        strcpy(persos[i].nom, nom);
+    // Charger les capacités ultimes
+    int idCapacite, duree, recharge;
+    char nomCapacite[50], description[2000];
+    int i = 0;
+    while (fscanf(fichierCapacites, "%d %s %s %d %d", &idCapacite, nomCapacite, description, &duree, &recharge) == 5) {
+        capacites[i].id = idCapacite;
+        strcpy(capacites[i].nom, nomCapacite);
+        strcpy(capacites[i].description, description);
+        capacites[i].duree_effet = duree;
+        capacites[i].cooldown = recharge;
+        
+
+        
+        i++;
+    }
+
+*nbCapacites = i;
+fclose(fichierCapacites);
+
+
+
+    int idPerso, pdv_max, attaque, defense, agilite, vitesse;
+    char nomPerso[50];
+    i = 0;
+    while (fscanf(fichierPersos, "%d %s %d %d %d %d %d", &idPerso, nomPerso, &pdv_max, &attaque, &defense, &agilite, &vitesse) == 7) {
+        persos[i].id = idPerso;
+        strcpy(persos[i].nom, nomPerso);
         persos[i].pdv_max = pdv_max;
         persos[i].pdv = pdv_max;  
         persos[i].attaque = attaque;
@@ -28,12 +55,14 @@ void chargerPersos(Perso persos[], const char* nomFichier, int *nb) {
         persos[i].agilite = agilite;
         persos[i].vitesse = vitesse;
         persos[i].vitesse_max = vitesse;
+
+        // Associer la capacité au  personnage avec l'Id
+        persos[i].capacite = capacites[i];
         i++;
     }
+    printf("Perso %s a capacité : %s\n", persos[i].nom, persos[i].capacite.nom);
 
-    *nb = i;  
-    fclose(fichier);
+
+    *nbPersos = i;
+    fclose(fichierPersos);
 }
-
-
-
