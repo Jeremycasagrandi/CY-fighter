@@ -69,6 +69,9 @@ Equipe choixPersonnage(int n) {
     } while (c != 'n' && c!='o');
 
     Equipe eq;
+
+    eq.id=n;
+
     int pris[6] ;  // Pour vérifier si un personnage est déjà pris
     for (int i = 0; i < 6; i++) { //Obliger sinon cela bloque certain choix alors qu'il ne doit pas l'être
         pris[i] = 0;
@@ -149,6 +152,21 @@ Jeu multijoueur() {
     return jeu;
 }
 
+//regarde si une equipe est éléminé, retourne 1 si equipe 1 gagne, 2 si equipe 2 gagne
+int finDuJeu(Jeu* jeu){
+    Equipe eq1=jeu->equipe1;
+    Equipe eq2=jeu->equipe2;
+    if (eq1.membres[0].pdv<=0&&eq1.membres[1].pdv<=0&&eq1.membres[2].pdv<=0){
+        return 2;
+    }
+    else if (eq2.membres[0].pdv<=0&&eq2.membres[1].pdv<=0&&eq2.membres[2].pdv<=0){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
 
 
 int tour(Jeu* jeu) {
@@ -174,16 +192,51 @@ int tour(Jeu* jeu) {
     }
 }
 
+
+//permet enlever des pv a un membre de l'équipe adverse
+void attaque(Jeu* jeu,Perso* perso, int idEquipe){
+    
+    //choix de l'adversaire
+    int choix;
+    Perso* cible;
+    if (idEquipe==1){
+        do {
+            printf("tu veux attaquer %s (1),%s(2) ou %s(3)",jeu->equipe2.membres[0].nom,jeu->equipe2.membres[1].nom,jeu->equipe2.membres[2].nom);
+            scanf("%d", &choix);
+        } while (choix < 1 || choix > 3);  
+        cible=&jeu->equipe2.membres[choix-1];
+        
+    }
+    else {
+        do {
+            printf("tu veux attaquer %s (1),%s(2) ou %s(3)",jeu->equipe1.membres[0].nom,jeu->equipe1.membres[1].nom,jeu->equipe1.membres[2].nom);
+            scanf("%d", &choix);
+        } while (choix < 1 || choix > 3);  
+        cible=&jeu->equipe1.membres[choix-1];
+       
+    }
+
+    //retire pv a l'adversaire
+    cible->pdv-=perso->attaque;
+
+}
+
+
+
+
 void choisirAction(Jeu* jeu, int indexEquipe) {
     int choix;
     Equipe* equipeJoueur;
+    int idEquipe;
     
     
     if (indexEquipe < 3) { //les 3 joueurs de la même équipe jouent
         equipeJoueur = &jeu->equipe1;
+        idEquipe=1;
     } else {
         equipeJoueur = &jeu->equipe2;
         indexEquipe -= 3;  
+        idEquipe=2;
     }
 
     
@@ -203,7 +256,7 @@ void choisirAction(Jeu* jeu, int indexEquipe) {
     switch (choix) {
         case 1:  // Attaque
             printf("%s attaque un membre de l'équipe adverse !\n", perso->nom);
-            // attaque()
+            attaque(jeu, perso, idEquipe);
             break;
         
         case 2:  // Utiliser capacité ultime

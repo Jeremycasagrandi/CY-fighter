@@ -32,6 +32,8 @@ typedef struct {
 typedef struct {
     Perso membres[3];
     char nom[50];
+    int id;
+
 } Equipe;
 
 typedef struct {

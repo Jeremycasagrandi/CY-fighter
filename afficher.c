@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "constructeur.h"
 #include "afficher.h"
+#include "jeu.h"
 
 void afficherMenu() {
     printf("=== MENU PRINCIPAL ===\n");
@@ -64,7 +65,19 @@ void afficherCapacite(int n, Ult capacites[], int nbCapacites) {
             printf("Description: %s\n", capacites[i].description);
             printf("Durée de l'effet: %d tours\n", capacites[i].duree_effet);
             printf("Recharge: %d tours\n", capacites[i].cooldown);
+            printf("\n");
             return;  
         }
+    }
+}
+
+//affiche l'équipe gagnante
+void afficherGagnant(Jeu jeu){
+    int gagnant=finDuJeu(&jeu);
+    if (gagnant==1){
+        printf("L'équipe %s a gagné",jeu.equipe1.nom);
+    }
+    else{
+        printf("L'équipe %s a gagné",jeu.equipe2.nom);
     }
 }
