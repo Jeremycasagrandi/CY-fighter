@@ -4,56 +4,51 @@
 #include "jeu.h"
 
 void afficherMenu() {
-    printf("=== MENU PRINCIPAL ===\n");
-    printf("1. Multijoueur\n");
-    printf("2. Campagne\n");
+    printf(" _[MENU PRINCIPAL] _________________________________________\n");
+    printf("|                                                           |\n");
+    printf("|        1. Multijoueur        2. Campagne                  |\n");
+    printf("|                                                           |\n");
+    printf("|___________________________________________________________|\n\n");
+    
     printf("Votre choix : ");
 }
 
 
 void afficherPerso(Perso p) {
-    printf("\n--- Statistiques du personnage ---\n");
-    printf("Nom           : %s\n", p.nom);
-    printf("Points de vie : %d / %d\n", p.pdv, p.pdv_max);
-    printf("Attaque       : %d\n", p.attaque);
-    printf("Défense       : %d\n", p.defense);
-    printf("Agilité       : %d\n", p.agilite);
-    printf("Vitesse       : %d\n", p.vitesse);
-    printf("----------------------------------\n");
+    printf("\n_[Statistiques du personnage______________________________________\n");
+    printf("| %17s : %-42s |\n", "Nom", p.nom);
+    printf("| %17s : %-3d / %-36d |\n", "Points de vie", p.pdv, p.pdv_max);
+    printf("| %17s : %-42d |\n", "Attaque", p.attaque);
+    printf("| %17s : %-42d |\n", "Défense", p.defense);
+    printf("| %17s : %-42d |\n", "Agilité", p.agilite);
+    printf("| %17s : %-42d |\n", "Vitesse", p.vitesse);
+    if (estSoigneur(&p)) {
+        printf("| %17s : %-42d |\n", "Soin", p.soin);
+    }
+    printf("|________________________________________________________________|\n");
+
 }
 
-void afficherEquipe(Equipe *equipe, char *titre) {
-    printf("\n--- %s : %s ---\n", titre, equipe->nom);
+void afficherEquipe(Equipe *equipe, char *n) {
+    printf("\n_______________________ %18s : %-8s __________\n", n, equipe->nom);
 
-    for (int i = 0; i < 3; i++) {
-        printf("%s ", equipe->membres[i].nom);
-    }
-    printf("\n");
+    // Affichage des noms avec une largeur fixe
+    printf("| %-13s | %-13s | %-13s | %-13s |\n", " ",equipe->membres[0].nom, equipe->membres[1].nom, equipe->membres[2].nom);
 
-    for (int i = 0; i < 3; i++) {
-        printf("PDV: %d ", equipe->membres[i].pdv_max);
-    }
-    printf("\n");
+    // Lignes de stats
+    printf("| %-13s | %-13d | %-13d | %-13d |\n", "PDV max",equipe->membres[0].pdv_max, equipe->membres[1].pdv_max, equipe->membres[2].pdv_max);
 
-    for (int i = 0; i < 3; i++) {
-        printf("ATK: %d ", equipe->membres[i].attaque);
-    }
-    printf("\n");
+    printf("| %-13s | %-13d | %-13d | %-13d |\n", "Attaque",equipe->membres[0].attaque, equipe->membres[1].attaque, equipe->membres[2].attaque);
 
-    for (int i = 0; i < 3; i++) {
-        printf("DEF: %d ", equipe->membres[i].defense);
-    }
-    printf("\n");
+    printf("| %-13s | %-13d | %-13d | %-13d |\n", "Défense",equipe->membres[0].defense, equipe->membres[1].defense, equipe->membres[2].defense);
 
-    for (int i = 0; i < 3; i++) {
-        printf("VIT: %d ", equipe->membres[i].vitesse);
-    }
-    printf("\n");
+    printf("| %-13s | %-13d | %-13d | %-13d |\n", "Vitesse",equipe->membres[0].vitesse, equipe->membres[1].vitesse, equipe->membres[2].vitesse);
 
-    for (int i = 0; i < 3; i++) {
-        printf("AGI: %d ", equipe->membres[i].agilite);
-    }
-    printf("\n");
+    printf("| %-13s | %-13d | %-13d | %-13d |\n", "Agilité",equipe->membres[0].agilite, equipe->membres[1].agilite, equipe->membres[2].agilite);
+    
+    printf("| %-13s | %-13d | %-13d | %-13d |\n", "Soin",equipe->membres[0].soin, equipe->membres[1].soin, equipe->membres[2].soin);
+    
+    printf("|_______________________________________________________________|\n");
 }
 
 void afficherCapacite(int n, Ult capacites[], int nbCapacites) {
