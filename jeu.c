@@ -59,7 +59,7 @@ Equipe choixPersonnage(int n) {
     }
     char c;
     do {
-        printf("Voulez vous voir les capacités? oui = o / non = n");
+        printf("Voulez vous voir les capacités? oui = o / non = n   ");
         scanf(" %c", &c);
         if (c=='o'){
             for (int i = debut; i < fin; i++) {
@@ -125,7 +125,7 @@ Jeu multijoueur() {
 
     do {
         printf("Choix de l'équipe (1 ou 2) :\n ");
-        printf("Attention l'autre équipre prend automatiquement l'autre  \n ");
+        printf("Attention l'autre équipe prend automatiquement l'autre  \n ");
         scanf("%d", &choixJ1);
     } while (choixJ1 != 1 && choixJ1 != 2); // il y a un bug sur tout les while quand je mets une lettre
 
@@ -231,6 +231,49 @@ void attaque(Jeu* jeu,Perso* perso, int idEquipe){
     }
 }
 
+void soin(Jeu* jeu, Perso* perso, int idEquipe) {
+    // Choix de l'allié à soigner
+    int choix;
+    Perso* cible;
+
+    if (idEquipe == 1) {
+        do {
+            printf("Tu veux soigner %s (1), %s (2) ou %s (3) : ", jeu->equipe1.membres[0].nom, jeu->equipe1.membres[1].nom, jeu->equipe1.membres[2].nom);
+            scanf("%d", &choix);
+            if (!estVivant(&jeu->equipe1.membres[choix - 1])) {
+                printf("Il est déjà mort. Vous ne pouvez plus le soigner.\n");
+            }
+             else if (jeu->equipe1.membres[choix - 1].pdv == jeu->equipe1.membres[choix - 1].pdv_max) {
+                printf("Ce personnage a déjà tous ses points de vie.\n");
+            }
+        } while (choix < 1 || choix > 3 || !estVivant(&jeu->equipe1.membres[choix - 1]));
+
+        cible = &jeu->equipe1.membres[choix - 1];
+    } 
+    else {
+        do {
+            printf("Tu veux soigner %s (1), %s (2) ou %s (3) : ", jeu->equipe2.membres[0].nom, jeu->equipe2.membres[1].nom, jeu->equipe2.membres[2].nom);
+            scanf("%d", &choix);
+            if (!estVivant(&jeu->equipe2.membres[choix - 1])) {
+                printf("Il est déjà mort. Vous ne pouvez plus le soigner.\n");
+            } 
+            else if (jeu->equipe2.membres[choix - 1].pdv == jeu->equipe2.membres[choix - 1].pdv_max) {
+                printf("Ce personnage a déjà tous ses points de vie.\n");
+            }
+        } while (choix < 1 || choix > 3 || !estVivant(&jeu->equipe2.membres[choix - 1])||jeu->equipe1.membres[choix - 1].pdv == jeu->equipe1.membres[choix - 1].pdv_max);
+
+        cible = &jeu->equipe2.membres[choix - 1];
+    }
+
+    // Applique le soin
+    cible->pdv += perso->soin;
+
+    
+    if (cible->pdv > cible->pdv_max) {
+        cible->pdv = cible->pdv_max;
+    }
+}
+
 int estVivant(Perso* p) {
     return p->pdv > 0;
 }
@@ -238,6 +281,15 @@ int estVivant(Perso* p) {
 // Capacité de soin
 int estSoigneur(Perso* p) {
     return p->soin > 0;
+}
+//Eviter boucle infini dans soin()
+int soinDisponible(Equipe* equipe) {
+    for (int i = 0; i < 3; i++) {
+        if (estVivant(&equipe->membres[i]) && equipe->membres[i].pdv < equipe->membres[i].pdv_max) {
+            return 1; // Soin possible pour des persos encore vivant
+        }
+    }
+    return 0; // aucun soin possible
 }
 
 
@@ -264,14 +316,22 @@ void choisirAction(Jeu* jeu, int indexEquipe) {
     printf("1. Attaquer\n");
     printf("2. Utiliser capacité ultime\n");
     if (estSoigneur(perso)){
-        printf("3. Soin\n");
+        if (soinDisponible(equipeJoueur)){
+            printf("3. Soin\n");
+        }
+        else{
+            printf("3.Soin indisponible (PV max pour les persos)\n");
+        }
     }
     
     
     do {
         printf("Choisissez une action (1, 2 ou 3) : ");
         scanf("%d", &choix);
-    } while (choix < 1 || choix > 3);  
+        if (choix == 3 && !estSoigneur(perso)) {
+            printf("Action invalide. Ce personnage n'est pas un soigneur .\n");
+        }
+    } while ((choix < 1 || choix > 3) || (choix == 3 && (!estSoigneur(perso) || !soinDisponible(equipeJoueur))));
     switch (choix) {
         case 1:  // Attaque
             printf("%s attaque un membre de l'équipe adverse !\n", perso->nom);
@@ -282,7 +342,11 @@ void choisirAction(Jeu* jeu, int indexEquipe) {
             printf("%s utilise sa capacité ultime !\n", perso->nom);
             // ult()
             break;
-        
+        case 3:
+            printf("%s soigne un allié !\n", perso->nom);
+            soin(jeu, perso, idEquipe);
+            
+            break;
         
         default:
             printf("Choix invalide.\n");
