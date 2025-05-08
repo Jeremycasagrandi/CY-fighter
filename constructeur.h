@@ -24,6 +24,7 @@ typedef struct {
     int agilite;
     int vitesse;
     int vitesse_max;
+    int soin;
     Ult capacite;
 } Perso;
 

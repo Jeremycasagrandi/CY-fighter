@@ -59,7 +59,7 @@ Equipe choixPersonnage(int n) {
     }
     char c;
     do {
-        printf("Voulez vous voir les capacités? ");
+        printf("Voulez vous voir les capacités? oui = o / non = n");
         scanf(" %c", &c);
         if (c=='o'){
             for (int i = debut; i < fin; i++) {
@@ -174,19 +174,21 @@ int tour(Jeu* jeu) {
     while (1) {
         for (int i = 0; i < 3; i++) {
             // Vérification pour l'équipe 1
-            
-            jeu->equipe1.membres[i].vitesse--;
-            if (jeu->equipe1.membres[i].vitesse <= 0) {
-                jeu->equipe1.membres[i].vitesse = jeu->equipe1.membres[i].vitesse_max;
-                return i;  // Retourner le joueur de l'équipe 1
+            if (estVivant(&jeu->equipe1.membres[i])) {
+                jeu->equipe1.membres[i].vitesse--;
+                if (jeu->equipe1.membres[i].vitesse <= 0) {
+                    jeu->equipe1.membres[i].vitesse = jeu->equipe1.membres[i].vitesse_max;
+                    return i;  // Retourner le joueur de l'équipe 1
+                }
             }
 
             // Vérification pour l'équipe 2
-            
-            jeu->equipe2.membres[i].vitesse--;
-            if (jeu->equipe2.membres[i].vitesse <= 0) {
-                jeu->equipe2.membres[i].vitesse = jeu->equipe2.membres[i].vitesse_max;
-                return i + 3;  // Retourner le joueur de l'équipe 2
+            if (estVivant(&jeu->equipe2.membres[i])) {
+                jeu->equipe2.membres[i].vitesse--;
+                if (jeu->equipe2.membres[i].vitesse <= 0) {
+                    jeu->equipe2.membres[i].vitesse = jeu->equipe2.membres[i].vitesse_max;
+                    return i + 3;  // Retourner le joueur de l'équipe 2
+                }
             }
         }
     }
@@ -203,7 +205,10 @@ void attaque(Jeu* jeu,Perso* perso, int idEquipe){
         do {
             printf("tu veux attaquer %s (1),%s(2) ou %s(3)",jeu->equipe2.membres[0].nom,jeu->equipe2.membres[1].nom,jeu->equipe2.membres[2].nom);
             scanf("%d", &choix);
-        } while (choix < 1 || choix > 3);  
+            if (!estVivant(&jeu->equipe2.membres[choix - 1])){
+                printf("Il est déjà mort. Vous ne pouvez plus l'attaquer. ");
+            }
+        } while (choix < 1 || choix > 3 || !estVivant(&jeu->equipe2.membres[choix - 1])); 
         cible=&jeu->equipe2.membres[choix-1];
         
     }
@@ -211,17 +216,29 @@ void attaque(Jeu* jeu,Perso* perso, int idEquipe){
         do {
             printf("tu veux attaquer %s (1),%s(2) ou %s(3)",jeu->equipe1.membres[0].nom,jeu->equipe1.membres[1].nom,jeu->equipe1.membres[2].nom);
             scanf("%d", &choix);
-        } while (choix < 1 || choix > 3);  
+            if (!estVivant(&jeu->equipe2.membres[choix - 1])){
+                printf("Il est déjà mort. Vous ne pouvez plus l'attaquer. ");
+            }
+        } while (choix < 1 || choix > 3 || !estVivant(&jeu->equipe1.membres[choix - 1])); 
         cible=&jeu->equipe1.membres[choix-1];
        
     }
 
     //retire pv a l'adversaire
     cible->pdv-=perso->attaque;
-
+    if (cible->pdv < 0) {
+        cible->pdv = 0;  // Pour éviter d'afficher des pdv négatifs
+    }
 }
 
+int estVivant(Perso* p) {
+    return p->pdv > 0;
+}
 
+// Capacité de soin
+int estSoigneur(Perso* p) {
+    return p->soin > 0;
+}
 
 
 void choisirAction(Jeu* jeu, int indexEquipe) {
@@ -230,7 +247,7 @@ void choisirAction(Jeu* jeu, int indexEquipe) {
     int idEquipe;
     
     
-    if (indexEquipe < 3) { //les 3 joueurs de la même équipe jouent
+    if (indexEquipe < 3) { 
         equipeJoueur = &jeu->equipe1;
         idEquipe=1;
     } else {
@@ -246,7 +263,9 @@ void choisirAction(Jeu* jeu, int indexEquipe) {
     //effet_special()
     printf("1. Attaquer\n");
     printf("2. Utiliser capacité ultime\n");
-   
+    if (estSoigneur(perso)){
+        printf("3. Soin\n");
+    }
     
     
     do {

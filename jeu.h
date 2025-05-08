@@ -8,6 +8,6 @@ int tour();
 void debut();
 void choisirAction(Jeu* jeu, int indexEquipe);
 int finDuJeu(Jeu* jeu);
-
+int estVivant(Perso* p);
 
 #endif

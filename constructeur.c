@@ -42,10 +42,10 @@ fclose(fichierCapacites);
 
 
 
-    int idPerso, pdv_max, attaque, defense, agilite, vitesse;
+    int idPerso, pdv_max, attaque, defense, agilite, vitesse, soin;
     char nomPerso[50];
     i = 0;
-    while (fscanf(fichierPersos, "%d %s %d %d %d %d %d", &idPerso, nomPerso, &pdv_max, &attaque, &defense, &agilite, &vitesse) == 7) {
+    while (fscanf(fichierPersos, "%d %s %d %d %d %d %d %d", &idPerso, nomPerso, &pdv_max, &attaque, &defense, &agilite, &vitesse,&soin) == 8) {
         persos[i].id = idPerso;
         strcpy(persos[i].nom, nomPerso);
         persos[i].pdv_max = pdv_max;
@@ -55,6 +55,7 @@ fclose(fichierCapacites);
         persos[i].agilite = agilite;
         persos[i].vitesse = vitesse;
         persos[i].vitesse_max = vitesse;
+        persos[i].soin=soin;
 
         // Associer la capacité au  personnage avec l'Id
         persos[i].capacite = capacites[i];
