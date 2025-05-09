@@ -6,16 +6,22 @@
 #include "afficher.h"
 #include "constructeur.h"
 
+void vide_buffer(){
+    while (getchar()!='\n'){
+    }
+}
+
+
 Jeu menu() {
     int choix;
     Jeu jeu;
-
+    int verif;
     do {
         afficherMenu();
-        scanf("%d", &choix);
-
+        verif=scanf("%d", &choix);
+        vide_buffer();
         switch (choix) {
-            case 1:
+            case 1 :
                 jeu=multijoueur();  // Appel de la fonction multijoueur
                 break;
             case 2:
@@ -24,7 +30,7 @@ Jeu menu() {
             default:
                 printf("Choix invalide.\n");
         }
-    } while (choix != 1 && choix != 2);
+    } while (choix != 1 || choix != 2 || verif!=1);
     return jeu;
     
 }
@@ -33,7 +39,7 @@ Equipe choixPersonnage(int n) {
     Perso persos[MAX_PERSOS];
     Ult capacites[MAX_CAPACITES]; 
     int nbPersos, nbCapacites;
-
+    int verif;
     chargerPersos(persos, capacites, "persos.txt", "capacites.txt", &nbPersos, &nbCapacites);
 
     int debut;
@@ -60,16 +66,18 @@ Equipe choixPersonnage(int n) {
     char c;
     do {
         printf("Voulez vous voir les capacités? oui = o / non = n   ");
-        scanf(" %c", &c);
-        if (c=='o'){
+        
+        verif=scanf(" %c", &c);
+        vide_buffer();
+        if (c=='o'||verif!=1){
             for (int i = debut; i < fin; i++) {
                 afficherCapacite(persos[i].capacite.id, capacites, nbCapacites);
             }
         }
-    } while (c != 'n' && c!='o');
+    } while (c != 'n' || c!='o'||verif!=1);
 
     Equipe eq;
-
+    verif=0;
     eq.id=n;
 
     int pris[6] ;  // Pour vérifier si un personnage est déjà pris
@@ -80,8 +88,9 @@ Equipe choixPersonnage(int n) {
         int choix;
         do {
             printf("Choix %d (0 à 5) : ", i + 1);
-            scanf("%d", &choix);
-        } while (choix < 0 || choix > 5 || pris[choix] == 1);
+            verif=scanf("%d", &choix);
+            vide_buffer();
+        } while (choix < 0 || choix > 5 || pris[choix] == 1||verif!=1);
 
         pris[choix] = 1;//eviter doublo personnage
         eq.membres[i] = persos[debut + choix];
@@ -98,14 +107,15 @@ Equipe choixPersonnage(int n) {
 
 void choixEquipe(Equipe *equipe, int numeroEquipe) {
     int choix;
-
+    int verif;
     printf("=== Choix de l'équipe %d ===\n", numeroEquipe);
     printf("1. Fruits\n");
     printf("2. Légumes\n");
 
     do {
         printf("Votre choix (1 ou 2) : ");
-        scanf("%d", &choix);
+        verif=scanf("%d", &choix);
+        vide_buffer();
     } while (choix != 1 && choix != 2);
 
     if (choix == 1) {
@@ -285,7 +295,7 @@ int estSoigneur(Perso* p) {
 //Eviter boucle infini dans soin()
 int soinDisponible(Equipe* equipe) {
     for (int i = 0; i < 3; i++) {
-        if (estVivant(&equipe->membres[i]) && equipe->membres[i].pdv < equipe->membres[i].pdv_max) {
+        if (estVivant(&equipe->membres[i]) && (equipe->membres[i].pdv < equipe->membres[i].pdv_max)) {
             return 1; // Soin possible pour des persos encore vivant
         }
     }
@@ -340,7 +350,7 @@ void choisirAction(Jeu* jeu, int indexEquipe) {
         
         case 2:  // Utiliser capacité ultime
             printf("%s utilise sa capacité ultime !\n", perso->nom);
-            // ult()
+            // ult(jeu, )
             break;
         case 3:
             printf("%s soigne un allié !\n", perso->nom);

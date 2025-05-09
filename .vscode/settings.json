@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "constructeur.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "afficher.h": "c"
     }
 }

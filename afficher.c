@@ -29,6 +29,8 @@ void afficherPerso(Perso p) {
 
 }
 
+
+
 void afficherEquipe(Equipe *equipe, char *n) {
     printf("\n_______________________ %18s : %-8s __________\n", n, equipe->nom);
 
@@ -55,12 +57,12 @@ void afficherCapacite(int n, Ult capacites[], int nbCapacites) {
     
     for (int i = 0; i < nbCapacites; i++) {
         if (capacites[i].id == n) {
-            
-            printf("Nom: %s\n", capacites[i].nom);
-            printf("Description: %s\n", capacites[i].description);
-            printf("Durée de l'effet: %d tours\n", capacites[i].duree_effet);
-            printf("Recharge: %d tours\n", capacites[i].cooldown);
-            printf("\n");
+            printf("|____________________________________________________________|\n");
+            printf("| %-18s :  %-13s                       |\n", "NOM" , capacites[i].nom);
+            printf("| %-18s :  %-13s                       |\n","DESCRIPTION", capacites[i].description);
+            printf("| %-18s :  %-13d tours                 |\n", "DUREE DE L'EFFET", capacites[i].duree_effet);
+            printf("| %-18s :  %-13d tours                 |\n", "RECHARGE",capacites[i].cooldown);
+            printf("|____________________________________________________________|\n");
             return;  
         }
     }
