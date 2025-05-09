@@ -5,6 +5,7 @@
 #include "jeu.h"
 #include "afficher.h"
 #include "constructeur.h"
+#include "capacite_speciale.h"
 
 void vide_buffer(){
     while (getchar() != '\n') {}
@@ -219,7 +220,7 @@ void choisirAction(Jeu* jeu, int indexEquipe) {
         
         case 2:  // Utiliser capacité ultime
             printf("%s utilise sa capacité ultime !\n", perso->nom);
-            // ult(jeu, )
+            ult(jeu, perso, idEquipe);
             break;
         case 3:
             printf("%s soigne un allié !\n", perso->nom);
