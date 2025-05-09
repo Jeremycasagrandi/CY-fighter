@@ -13,6 +13,29 @@ void afficherMenu() {
     printf("Votre choix : ");
 }
 
+Jeu menu() {
+    int choix;
+    Jeu jeu;
+    int verif;
+    
+    afficherMenu();
+        
+    choix=scanInt(1,2);
+    switch (choix) {
+         case 1 :
+            jeu=multijoueur();  // Appel de la fonction multijoueur
+            break;
+        case 2:
+            //campagne();
+            break;
+        default:
+            printf("Choix invalide.\n");
+    }
+    
+    return jeu;
+    
+}
+
 
 void afficherPerso(Perso p) {
     printf("\n_[Statistiques du personnage______________________________________\n");

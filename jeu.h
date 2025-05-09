@@ -13,4 +13,6 @@ void attaque(Jeu* jeu, Perso* perso, int idEquipe);
 void soin(Jeu* jeu, Perso* perso, int idEquipe);
 int estSoigneur(Perso* p);
 int soinDisponible(Equipe* equipe);
+void vide_buffer();
+int scanInt(int min, int max);
 #endif
