@@ -9,7 +9,8 @@ typedef struct {
     char nom[50];
     char description[200];
     int duree_effet;    
-    int cooldown;      
+    int cooldown;   
+    int cooldown_max;
 } Ult;
 
 
@@ -49,7 +50,7 @@ typedef struct {
 
 Perso creationperso();
 void chargerPersos(Perso persos[], Ult capacites[], const char* nomFichierPersos, const char* nomFichierCapacites, int *nbPersos, int *nbCapacites);
-
+Jeu multijoueur();
 void afficherPerso(Perso p);
 void afficherCapacite(int n, Ult capacites[], int nbCapacites);
 #endif

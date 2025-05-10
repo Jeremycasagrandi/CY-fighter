@@ -3,7 +3,7 @@
 
 #include "jeu.h" 
 #include "constructeur.h"
-
+#include "capacite_classique.h"
 void ult(Jeu* jeu, Perso* perso_Ult, int idEquipe);
 
 void capacite0(Jeu* jeu, Perso* perso_Ult, int idEquipe);

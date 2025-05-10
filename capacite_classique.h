@@ -3,8 +3,9 @@
 
 #include "constructeur.h"  
 
-// Fonctions exportées
-void attaque(Jeu* jeu, Perso* attaquant, int idEquipe);
+Perso* choix_perso_allie(Equipe* equipe);
+Perso* choix_perso_ennemi(Equipe* equipe);
+void attaque(Jeu* jeu, Perso* perso, int idEquipe, int bonus_ult);
 void soin(Jeu* jeu, Perso* soigneur, int idEquipe);
 int estSoigneur(Perso* p);
 int soinDisponible(Equipe* equipe);

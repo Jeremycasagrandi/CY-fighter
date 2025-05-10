@@ -45,33 +45,45 @@ int esquive(Perso* cible) {
     chance = rand() % 100;  
     return chance < cible->agilite;
 }
+
+Perso* choix_perso_allie(Equipe* equipe) {
+    int choix;
+    do {
+        printf("Choisis un allié : %s (1), %s (2), %s (3) : ",
+            equipe->membres[0].nom, equipe->membres[1].nom, equipe->membres[2].nom);
+        choix = scanInt(1, 3);
+        if (!estVivant(&equipe->membres[choix - 1])) {
+            printf("Il est déjà mort. Vous ne pouvez plus le cibler.\n");
+        }
+    } while (choix < 1 || choix > 3 || !estVivant(&equipe->membres[choix - 1]));
+
+    return &equipe->membres[choix - 1];
+}
+
+Perso* choix_perso_ennemi(Equipe* equipe) {
+    int choix;
+    do {
+        printf("Choisis un ennemi à attaquer : %s (1), %s (2), %s (3) : ",
+            equipe->membres[0].nom, equipe->membres[1].nom, equipe->membres[2].nom);
+        choix = scanInt(1, 3);
+        if (!estVivant(&equipe->membres[choix - 1])) {
+            printf("Il est déjà mort. Vous ne pouvez plus l'attaquer.\n");
+        }
+    } while (choix < 1 || choix > 3 || !estVivant(&equipe->membres[choix - 1]));
+
+    return &equipe->membres[choix - 1];
+}
+
 //permet enlever des pv a un membre de l'équipe adverse
-void attaque(Jeu* jeu,Perso* perso, int idEquipe){
+void attaque(Jeu* jeu,Perso* perso, int idEquipe, int bonus_ult){
     
     //choix de l'adversaire
     int choix;
     Perso* cible;
-    if (idEquipe==1){
-        do {
-            printf("tu veux attaquer %s (1),%s(2) ou %s(3) ",jeu->equipe2.membres[0].nom,jeu->equipe2.membres[1].nom,jeu->equipe2.membres[2].nom);
-            choix = scanInt(1,3);
-            if (!estVivant(&jeu->equipe2.membres[choix - 1])){
-                printf("Il est déjà mort. Vous ne pouvez plus l'attaquer. ");
-            }
-        } while (choix < 1 || choix > 3 || !estVivant(&jeu->equipe2.membres[choix - 1])); 
-        cible=&jeu->equipe2.membres[choix-1];
-        
-    }
-    else {
-        do {
-            printf("tu veux attaquer %s (1),%s(2) ou %s(3)",jeu->equipe1.membres[0].nom,jeu->equipe1.membres[1].nom,jeu->equipe1.membres[2].nom);
-            choix = scanInt(1,3);
-            if (!estVivant(&jeu->equipe2.membres[choix - 1])){
-                printf("Il est déjà mort. Vous ne pouvez plus l'attaquer. ");
-            }
-        } while (choix < 1 || choix > 3 || !estVivant(&jeu->equipe1.membres[choix - 1])); 
-        cible=&jeu->equipe1.membres[choix-1];
-       
+    if (idEquipe == 1) {
+        cible = choix_perso_ennemi(&jeu->equipe2);
+    } else {
+        cible = choix_perso_ennemi(&jeu->equipe1);
     }
 
     // vérifie si l'attaque est esquivée
@@ -81,10 +93,15 @@ void attaque(Jeu* jeu,Perso* perso, int idEquipe){
     }
 
     // calcule les dégats réels 
-    int degats = defense(cible, perso->attaque);
+    int degats = defense(cible, perso->attaque)+bonus_ult;
     cible->pdv -= degats;
+    if (bonus_ult>0){
+        printf("%s subit %d dégâts (%d(attaque de base) +%d(ult)).\n", cible->nom, degats);
+    }
+    else{
+        printf("%s subit %d dégâts .\n", cible->nom, degats);
+    }
 
-    printf("%s subit %d dégâts.\n", cible->nom, degats);
     if (cible->pdv < 0) {
         cible->pdv = 0;  // Pour éviter d'afficher des pdv négatifs
     }
@@ -92,37 +109,21 @@ void attaque(Jeu* jeu,Perso* perso, int idEquipe){
 
 void soin(Jeu* jeu, Perso* perso, int idEquipe) {
     // Choix de l'allié à soigner
-    int choix;
     Perso* cible;
+    Equipe* equipe;
 
     if (idEquipe == 1) {
-        do {
-            printf("Tu veux soigner %s (1), %s (2) ou %s (3) : ", jeu->equipe1.membres[0].nom, jeu->equipe1.membres[1].nom, jeu->equipe1.membres[2].nom);
-            choix = scanInt(1,3);
-            if (!estVivant(&jeu->equipe1.membres[choix - 1])) {
-                printf("Il est déjà mort. Vous ne pouvez plus le soigner.\n");
-            }
-             else if (jeu->equipe1.membres[choix - 1].pdv == jeu->equipe1.membres[choix - 1].pdv_max) {
-                printf("Ce personnage a déjà tous ses points de vie.\n");
-            }
-        } while (choix < 1 || choix > 3 || !estVivant(&jeu->equipe1.membres[choix - 1]));
-
-        cible = &jeu->equipe1.membres[choix - 1];
-    } 
-    else {
-        do {
-            printf("Tu veux soigner %s (1), %s (2) ou %s (3) : ", jeu->equipe2.membres[0].nom, jeu->equipe2.membres[1].nom, jeu->equipe2.membres[2].nom);
-            choix = scanInt(1,3);
-            if (!estVivant(&jeu->equipe2.membres[choix - 1])) {
-                printf("Il est déjà mort. Vous ne pouvez plus le soigner.\n");
-            } 
-            else if (jeu->equipe2.membres[choix - 1].pdv == jeu->equipe2.membres[choix - 1].pdv_max) {
-                printf("Ce personnage a déjà tous ses points de vie.\n");
-            }
-        } while (choix < 1 || choix > 3 || !estVivant(&jeu->equipe2.membres[choix - 1])||jeu->equipe1.membres[choix - 1].pdv == jeu->equipe1.membres[choix - 1].pdv_max);
-
-        cible = &jeu->equipe2.membres[choix - 1];
+        equipe = &jeu->equipe1;
+    } else {
+        equipe = &jeu->equipe2;
     }
+
+    do {
+        cible = choix_perso_allie(equipe);
+        if (cible->pdv == cible->pdv_max) {
+            printf("Ce personnage a déjà tous ses points de vie.\n");
+        }
+    } while (cible->pdv == cible->pdv_max);
 
     // Applique le soin
     cible->pdv += perso->soin;

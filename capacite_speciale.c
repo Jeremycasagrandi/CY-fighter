@@ -47,37 +47,67 @@ void ult(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
 
 
 void capacite0(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    //bonus 50 dégats à attaque
+    int bonus_ult = 50;
+    attaque(jeu, perso_Ult, idEquipe, bonus_ult);
+    perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 void capacite1(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    
+
+    Equipe* alliee;
+    if (idEquipe == 1) {
+        alliee = &jeu->equipe1;
+    } else {
+        alliee = &jeu->equipe2;
+    }
+
+    Perso* allie = choix_perso_allie(alliee);
+
+    int bonus_ult = allie->attaque;
+
+
+    attaque(jeu, allie, idEquipe, bonus_ult);
+    perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 void capacite2(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 void capacite3(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 void capacite4(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 void capacite5(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 void capacite6(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 void capacite7(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 void capacite8(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 void capacite9(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 void capacite10(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 void capacite11(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }

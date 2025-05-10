@@ -157,15 +157,16 @@ void chargerPersos(Perso persos[], Ult capacites[], const char* nomFichierPersos
     }
 
     // Charger les capacités ultimes
-    int idCapacite, duree, recharge;
+    int idCapacite, duree, cooldown;
     char nomCapacite[50], description[2000];
     int i = 0;
-    while (fscanf(fichierCapacites, "%d %s %s %d %d", &idCapacite, nomCapacite, description, &duree, &recharge) == 5) {
+    while (fscanf(fichierCapacites, "%d %s %s %d %d", &idCapacite, nomCapacite, description, &duree, &cooldown) == 5) {
         capacites[i].id = idCapacite;
         strcpy(capacites[i].nom, nomCapacite);
         strcpy(capacites[i].description, description);
         capacites[i].duree_effet = duree;
-        capacites[i].cooldown = recharge;
+        capacites[i].cooldown_max = cooldown;
+        capacites[i].cooldown =cooldown;
         
 
         

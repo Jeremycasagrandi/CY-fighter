@@ -116,7 +116,9 @@ int estVivant(Perso* p) {
     return p->pdv > 0;
 }
 
-
+int Aulti(Perso* perso) {
+    return perso->capacite.cooldown == 0;
+}
 void choisirAction(Jeu* jeu, int indexEquipe) {
     int choix;
     Equipe* equipeJoueur;
@@ -152,14 +154,17 @@ void choisirAction(Jeu* jeu, int indexEquipe) {
     do {
         printf("Choisissez une action (1, 2 ou 3) : ");
         choix = scanInt(1,3);
+        if (choix == 2 && !Aulti(perso)) {
+            printf("Capacité ultime indisponible.  %d tours restabts.\n", perso->capacite.cooldown);
+        }
         if (choix == 3 && !estSoigneur(perso)) {
             printf("Action invalide. Ce personnage n'est pas un soigneur .\n");
         }
-    } while ((choix < 1 || choix > 3) || (choix == 3 && (!estSoigneur(perso) || !soinDisponible(equipeJoueur))));
+    } while ((choix < 1 || choix > 3) || (choix == 2 && !Aulti(perso))||(choix == 3 && (!estSoigneur(perso) || !soinDisponible(equipeJoueur))));
     switch (choix) {
         case 1:  // Attaque
             printf("%s attaque un membre de l'équipe adverse !\n", perso->nom);
-            attaque(jeu, perso, idEquipe);
+            attaque(jeu, perso, idEquipe, 0);
             break;
         
         case 2:  // Utiliser capacité ultime
@@ -175,6 +180,9 @@ void choisirAction(Jeu* jeu, int indexEquipe) {
         default:
             printf("Choix invalide.\n");
             break;
+    }
+    if (perso->capacite.cooldown > 0) {
+        perso->capacite.cooldown--;
     }
 }
 

@@ -1,18 +1,17 @@
 #ifndef JEU_H
 #define JEU_H
 
-#include "constructeur.h"  
-Jeu menu();
-Jeu multijoueur();
-int tour();
-void debut();
-void choisirAction(Jeu* jeu, int indexEquipe);
-int finDuJeu(Jeu* jeu);
-int estVivant(Perso* p);
-void attaque(Jeu* jeu, Perso* perso, int idEquipe);
-void soin(Jeu* jeu, Perso* perso, int idEquipe);
-int estSoigneur(Perso* p);
-int soinDisponible(Equipe* equipe);
+#include "constructeur.h" 
+#include "afficher.h"
+#include "capacite_speciale.h"
+#include "capacite_classique.h"
 void vide_buffer();
 int scanInt(int min, int max);
+int finDuJeu(Jeu* jeu);
+int trouverIndexVitesseMax(Perso* tab[]);
+int tour(Jeu* jeu);
+int estVivant(Perso* p);
+int Aulti(Perso* perso);
+void choisirAction(Jeu* jeu, int indexEquipe);
+
 #endif
