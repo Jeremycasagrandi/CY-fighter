@@ -12,7 +12,7 @@ Equipe choixPersonnage(int n) {
     int nbPersos, nbCapacites;
     int verif;
     chargerPersos(persos, capacites, "persos.txt", "capacites.txt", &nbPersos, &nbCapacites);
-
+  
     int debut;
     int fin;
     // Pour choix entre fruit et légume
@@ -23,29 +23,29 @@ Equipe choixPersonnage(int n) {
         debut = 6;
         fin = 12;
     }
-
+    clearScreen();
     if (n == 1) {
         printf("\n--- Joueur 1 (Fruits) ---\n");
     } else {
         printf("\n--- Joueur 2 (Légumes) ---\n");
     }
-
+    
     for (int i = debut; i < fin; i++) {
-        printf("%d. ", i - debut); 
+        printf("Personnage %d :\n ", i - debut); 
         afficherPerso(persos[i]);
     }
     char c;
-    do {
-        printf("Voulez vous voir les capacités? oui = o / non = n   ");
+    // do {
+    //     printf("Voulez vous voir les capacités? oui = o / non = n   ");
         
-        verif=scanf(" %c", &c);
-        vide_buffer();
-        if (c=='o'||verif!=1){
-            for (int i = debut; i < fin; i++) {
-                afficherCapacite(persos[i].capacite.id, capacites, nbCapacites);
-            }
-        }
-    } while ((c != 'n' && c != 'o') || verif != 1);
+    //     verif=scanf(" %c", &c);
+    //     vide_buffer();
+    //     if (c=='o'||verif!=1){
+    //         for (int i = debut; i < fin; i++) {
+    //             afficherCapacite(persos[i].capacite.id, capacites, nbCapacites);
+    //         }
+    //     }
+    // } while ((c != 'n' && c != 'o') || verif != 1);
 
     Equipe eq;
     verif=0;
@@ -100,10 +100,8 @@ void choixEquipe(Equipe *equipe, int numeroEquipe) {
 Jeu multijoueur() {
     int choixJ1;
     int choixJ2;
-
-    printf("=== Joueur 1 ===\n");
-    printf("1. Fruits\n");
-    printf("2. Légumes\n");
+    afficherChoixEq();
+  
 
     choixJ1=scanInt(1,2);
 

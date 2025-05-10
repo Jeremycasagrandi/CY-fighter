@@ -1,9 +1,22 @@
 #include <stdio.h>
+#include <unistd.h> 
+#include <stdlib.h>
 #include "constructeur.h"
 #include "afficher.h"
 #include "jeu.h"
 
+void clearScreen() {
+    #ifdef _WIN32
+        system("cls");
+        
+    #else
+        printf("\033[2J\033[H");
+        fflush(stdout);
+    #endif
+}
+
 void afficherMenu() {
+    clearScreen();
     printf(" _[MENU PRINCIPAL] _________________________________________\n");
     printf("|                                                           |\n");
     printf("|        1. Multijoueur        2. Campagne                  |\n");
@@ -11,6 +24,21 @@ void afficherMenu() {
     printf("|___________________________________________________________|\n\n");
     
     printf("Votre choix : ");
+    
+}
+
+void afficherChoixEq(){
+    clearScreen();
+    printf(" _[CHOIX DE L'EQUIPE DU JOUEUR 1 ] _____________\n");
+    printf("|                                               |\n");
+    printf("|        1. Fruits        2. Légumes            |\n");
+    printf("|                                               |\n");
+    printf("|_______________________________________________|\n\n");
+    
+    printf("Votre choix : ");
+    
+
+
 }
 
 Jeu menu() {
@@ -38,23 +66,40 @@ Jeu menu() {
 
 
 void afficherPerso(Perso p) {
-    printf("\n_[Statistiques du personnage______________________________________\n");
-    printf("| %17s : %-42s |\n", "Nom", p.nom);
-    printf("| %17s : %-3d / %-36d |\n", "Points de vie", p.pdv, p.pdv_max);
-    printf("| %17s : %-42d |\n", "Attaque", p.attaque);
-    printf("| %17s : %-42d |\n", "Défense", p.defense);
-    printf("| %17s : %-42d |\n", "Agilité", p.agilite);
-    printf("| %17s : %-42d |\n", "Vitesse", p.vitesse);
+    
+    printf("\n_[Statistiques du personnage]__________________________________________________________________________________\n");
+    printf("| %17s : %-20s %s                                                          |\n", "Nom", p.nom,"CAPACITE :");
+    printf("| %17s : %-3d / %-78d     |\n", "Points de vie", p.pdv, p.pdv_max);
+    printf("| %17s : %-30d %-18s :  %-13s                       |\n", "Attaque", p.attaque, "NOM" , p.capacite.nom);
+    printf("| %17s : %-30d %-18s :  %-13s                       |\n", "Défense", p.defense,"DESCRIPTION", p.capacite.description);
+    printf("| %17s : %-30d %-18s :  %-13d tours                 |\n", "Agilité", p.agilite,"DUREE DE L'EFFET", p.capacite.duree_effet);
+    printf("| %17s : %-30d %-18s :  %-13d tours                 |\n", "Vitesse", p.vitesse,"RECHARGE",p.capacite.cooldown);
     if (estSoigneur(&p)) {
-        printf("| %17s : %-42d |\n", "Soin", p.soin);
+        printf("| %17s : %-88d |\n", "Soin", p.soin);
     }
-    printf("|________________________________________________________________|\n");
+    printf("|______________________________________________________________________________________________________________|\n");
+}
 
+
+void afficherCapacite(int n, Ult capacites[], int nbCapacites) {
+    
+    for (int i = 0; i < nbCapacites; i++) {
+        if (capacites[i].id == n) {
+            printf("|____________________________________________________________|\n");
+            printf("| %-18s :  %-13s                       |\n", "NOM" , capacites[i].nom);
+            printf("| %-18s :  %-13s                       |\n","DESCRIPTION", capacites[i].description);
+            printf("| %-18s :  %-13d tours                 |\n", "DUREE DE L'EFFET", capacites[i].duree_effet);
+            printf("| %-18s :  %-13d tours                 |\n", "RECHARGE",capacites[i].cooldown);
+            printf("|____________________________________________________________|\n");
+            return;  
+        }
+    }
 }
 
 
 
 void afficherEquipe(Equipe *equipe, char *n) {
+
     printf("\n_______________________ %18s : %-8s __________\n", n, equipe->nom);
 
     // Affichage des noms avec une largeur fixe
@@ -76,20 +121,24 @@ void afficherEquipe(Equipe *equipe, char *n) {
     printf("|_______________________________________________________________|\n");
 }
 
-void afficherCapacite(int n, Ult capacites[], int nbCapacites) {
+void afficherPlateau(Jeu* jeu) {
     
-    for (int i = 0; i < nbCapacites; i++) {
-        if (capacites[i].id == n) {
-            printf("|____________________________________________________________|\n");
-            printf("| %-18s :  %-13s                       |\n", "NOM" , capacites[i].nom);
-            printf("| %-18s :  %-13s                       |\n","DESCRIPTION", capacites[i].description);
-            printf("| %-18s :  %-13d tours                 |\n", "DUREE DE L'EFFET", capacites[i].duree_effet);
-            printf("| %-18s :  %-13d tours                 |\n", "RECHARGE",capacites[i].cooldown);
-            printf("|____________________________________________________________|\n");
-            return;  
-        }
-    }
+    afficherJaugeVitesse2(jeu->tabE[0]);
+    printf("              ");
+    afficherJaugeVitesse2(jeu->tabE[3]);
+    printf("\n");
+    afficherJaugeVitesse2(jeu->tabE[1]);
+    printf("              ");
+    afficherJaugeVitesse2(jeu->tabE[4]);
+    printf("\n");
+    afficherJaugeVitesse2(jeu->tabE[2]);
+    printf("              ");
+    afficherJaugeVitesse2(jeu->tabE[5]);
+    printf("\n");
+    
+
 }
+
 
 //affiche l'équipe gagnante
 void afficherGagnant(Jeu jeu){
@@ -115,4 +164,19 @@ void afficherJaugeVitesse(Perso* perso) {
         printf("-");
     }
     printf("] %3d/100\n", perso->vitesse);
+}
+
+void afficherJaugeVitesse2(Perso* perso) {
+    int max = 100;
+    int nbBarres = (perso->vitesse * 20) / max;
+    if (nbBarres > 20) nbBarres = 20;
+
+    printf("%-12s [", perso->nom);  // alignement du nom
+    for (int i = 0; i < nbBarres; i++) {
+        printf("#");
+    }
+    for (int i = nbBarres; i < 20; i++) {
+        printf("-");
+    }
+    printf("] %3d/100", perso->vitesse);
 }

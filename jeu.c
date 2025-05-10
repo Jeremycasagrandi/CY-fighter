@@ -76,12 +76,11 @@ int trouverIndexVitesseMax(Perso* tab[]) {
 //retourne le prochain personnage qui doit jouer a chaque appel
 int tour(Jeu* jeu) {
     int index;
-
+    
+    
     // 🔹 Affiche les jauges dès l'appel de la fonction
     printf("\n=== Jauge de vitesse (début du tour) ===\n");
-    for (int i = 0; i < 6; i++) {
-        afficherJaugeVitesse(jeu->tabE[i]);
-    }
+    afficherPlateau(jeu);
 
     index = trouverIndexVitesseMax(jeu->tabE);
 
@@ -90,11 +89,10 @@ int tour(Jeu* jeu) {
         for (int i = 0; i < 6; i++) {
             jeu->tabE[i]->vitesse += jeu->tabE[i]->vitesse_max;
         }
-
+        
         printf("\n=== Jauge mise à jour ===\n");
-        for (int i = 0; i < 6; i++) {
-            afficherJaugeVitesse(jeu->tabE[i]);
-        }
+        
+        afficherPlateau(jeu);
 
         sleep(1);  // pause d’une seconde avant nouveau test
         index = trouverIndexVitesseMax(jeu->tabE);
@@ -105,7 +103,6 @@ int tour(Jeu* jeu) {
     jeu->tabE[index]->vitesse = 0;
     return index;
 }
-
 
 
 

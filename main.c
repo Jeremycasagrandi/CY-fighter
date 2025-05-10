@@ -9,15 +9,18 @@
 #pragma comment(lib, "winmm.lib")
 
 int main() {
-    PlaySound("son/son.wav", NULL, SND_FILENAME | SND_ASYNC);
-    Sleep(3000); // Laisse le son jouer 3 secondes
+    
     
     Jeu jeu = menu();
     int i=0;
+    
 
     //fin du jeu vérifie si une equipe est morte (dans jeu.c)
     while(finDuJeu(&jeu)==0){
+        afficherPlateau(&jeu);
+       
         int indexJoueur = tour(&jeu);  
+        
         
         
         printf(" Tour %d \n", i+1);
