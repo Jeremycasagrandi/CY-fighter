@@ -3,6 +3,7 @@
         "constructeur.h": "c",
         "stdio.h": "c",
         "afficher.h": "c",
-        "capacite_classique.C": "cpp"
+        "capacite_classique.C": "cpp",
+        "mmsystem.h": "c"
     }
 }
