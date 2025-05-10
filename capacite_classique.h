@@ -8,5 +8,6 @@ void attaque(Jeu* jeu, Perso* attaquant, int idEquipe);
 void soin(Jeu* jeu, Perso* soigneur, int idEquipe);
 int estSoigneur(Perso* p);
 int soinDisponible(Equipe* equipe);
-
+int defense(Perso* cible, int degats);
+int esquive(Perso* cible);
 #endif

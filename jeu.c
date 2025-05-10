@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "jeu.h"
 #include "afficher.h"
@@ -50,30 +51,55 @@ int finDuJeu(Jeu* jeu){
 
 
 
-int tour(Jeu* jeu) {
-    
-    while (1) {
-        for (int i = 0; i < 3; i++) {
-            // Vérification pour l'équipe 1
-            if (estVivant(&jeu->equipe1.membres[i])) {
-                jeu->equipe1.membres[i].vitesse--;
-                if (jeu->equipe1.membres[i].vitesse <= 0) {
-                    jeu->equipe1.membres[i].vitesse = jeu->equipe1.membres[i].vitesse_max;
-                    return i;  // Retourner le joueur de l'équipe 1
-                }
-            }
 
-            // Vérification pour l'équipe 2
-            if (estVivant(&jeu->equipe2.membres[i])) {
-                jeu->equipe2.membres[i].vitesse--;
-                if (jeu->equipe2.membres[i].vitesse <= 0) {
-                    jeu->equipe2.membres[i].vitesse = jeu->equipe2.membres[i].vitesse_max;
-                    return i + 3;  // Retourner le joueur de l'équipe 2
-                }
-            }
+int trouverIndexVitesseMax(Perso* tab[]) {
+    int maxIndex = -1;
+    int maxVitesse = 100;  // seuil minimum pour jouer
+
+    for (int i = 0; i < 6; i++) {
+        if (tab[i]->vitesse >= 100 && tab[i]->vitesse > maxVitesse) {
+            maxVitesse = tab[i]->vitesse;
+            maxIndex = i;
         }
     }
+
+    return maxIndex;
 }
+int tour(Jeu* jeu) {
+    int index;
+
+    // 🔹 Affiche les jauges dès l'appel de la fonction
+    printf("\n=== Jauge de vitesse (début du tour) ===\n");
+    for (int i = 0; i < 6; i++) {
+        afficherJaugeVitesse(jeu->tabE[i]);
+    }
+
+    index = trouverIndexVitesseMax(jeu->tabE);
+
+    // 🔹 Si personne ne peut encore jouer, on augmente les vitesses
+    while (index == -1) {
+        for (int i = 0; i < 6; i++) {
+            jeu->tabE[i]->vitesse += jeu->tabE[i]->vitesse_max;
+        }
+
+        printf("\n=== Jauge mise à jour ===\n");
+        for (int i = 0; i < 6; i++) {
+            afficherJaugeVitesse(jeu->tabE[i]);
+        }
+
+        sleep(1);  // pause d’une seconde avant nouveau test
+        index = trouverIndexVitesseMax(jeu->tabE);
+    }
+
+    // 🔹 Quelqu’un peut jouer
+    printf("\n>>> %s joue ! <<<\n", jeu->tabE[index]->nom);
+    jeu->tabE[index]->vitesse = 0;
+    return index;
+}
+
+
+
+
 
 
 

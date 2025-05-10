@@ -120,6 +120,15 @@ Jeu multijoueur() {
     Jeu jeu;
     jeu.equipe1=equipe1;
     jeu.equipe2=equipe2;
+
+    for (int i = 0; i < 3; i++) {
+        jeu.tabE[i] = &equipe1.membres[i];
+        jeu.tabE[i + 3] = &equipe2.membres[i];
+    }
+    for (int i = 0; i < 6; i++) {
+        jeu.tabE[i]->num=i;
+    }
+
    
     // Affichage des équipes sélectionnées
 
@@ -178,7 +187,7 @@ fclose(fichierCapacites);
         persos[i].attaque = attaque;
         persos[i].defense = defense;
         persos[i].agilite = agilite;
-        persos[i].vitesse = vitesse;
+        persos[i].vitesse = 0;
         persos[i].vitesse_max = vitesse;
         persos[i].soin=soin;
 

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "capacite_classique.h"
 #include "jeu.h"
-
+#include <stdlib.h>
 
 
 // Capacité de soin
@@ -18,6 +18,33 @@ int soinDisponible(Equipe* equipe) {
     return 0; // aucun soin possible
 }
 
+int defense(Perso* cible, int degats) {
+    int reduction=0;
+    //peut etre pour les capacités spéciales
+    if (cible->defense < 0){
+        cible->defense = 0;
+    } 
+    if (cible->defense > 100){
+        cible->defense = 100;
+    } 
+
+    reduction = (degats * cible->defense) / 100;
+    return degats - reduction;
+}
+
+int esquive(Perso* cible) {
+    int chance=0;
+    //peut etre pour les capacités spéciales
+    if (cible->agilite < 0){
+        cible->agilite = 0;
+    } 
+    if (cible->agilite > 100){
+        cible->agilite = 100;
+    } 
+
+    chance = rand() % 100;  
+    return chance < cible->agilite;
+}
 //permet enlever des pv a un membre de l'équipe adverse
 void attaque(Jeu* jeu,Perso* perso, int idEquipe){
     
@@ -26,7 +53,7 @@ void attaque(Jeu* jeu,Perso* perso, int idEquipe){
     Perso* cible;
     if (idEquipe==1){
         do {
-            printf("tu veux attaquer %s (1),%s(2) ou %s(3)",jeu->equipe2.membres[0].nom,jeu->equipe2.membres[1].nom,jeu->equipe2.membres[2].nom);
+            printf("tu veux attaquer %s (1),%s(2) ou %s(3) ",jeu->equipe2.membres[0].nom,jeu->equipe2.membres[1].nom,jeu->equipe2.membres[2].nom);
             choix = scanInt(1,3);
             if (!estVivant(&jeu->equipe2.membres[choix - 1])){
                 printf("Il est déjà mort. Vous ne pouvez plus l'attaquer. ");
@@ -47,8 +74,17 @@ void attaque(Jeu* jeu,Perso* perso, int idEquipe){
        
     }
 
-    //retire pv a l'adversaire
-    cible->pdv-=perso->attaque;
+    // vérifie si l'attaque est esquivée
+    if (esquive(cible)) {
+        printf("%s a esquivé l'attaque !\n", cible->nom);
+        return;
+    }
+
+    // calcule les dégats réels 
+    int degats = defense(cible, perso->attaque);
+    cible->pdv -= degats;
+
+    printf("%s subit %d dégâts.\n", cible->nom, degats);
     if (cible->pdv < 0) {
         cible->pdv = 0;  // Pour éviter d'afficher des pdv négatifs
     }
