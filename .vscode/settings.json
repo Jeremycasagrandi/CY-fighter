@@ -2,6 +2,7 @@
     "files.associations": {
         "constructeur.h": "c",
         "stdio.h": "c",
-        "afficher.h": "c"
+        "afficher.h": "c",
+        "capacite_classique.C": "cpp"
     }
 }

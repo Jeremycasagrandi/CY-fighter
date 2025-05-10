@@ -15,8 +15,11 @@ jeu.o: jeu.c jeu.h afficher.h constructeur.h capacite_speciale.h
 capacite_speciale.o: capacite_speciale.c capacite_speciale.h constructeur.h jeu.h
 	gcc -c capacite_speciale.c -o capacite_speciale.o
 
-exec: main.o constructeur.o afficher.o jeu.o capacite_speciale.o
-	gcc main.o constructeur.o afficher.o jeu.o capacite_speciale.o -o exec
+capacite_classique.o: capacite_classique.c capacite_classique.h constructeur.h
+	gcc -c capacite_classique.c -o capacite_classique.o
+
+exec: main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o
+	gcc main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o -o exec
 
 clean:
 	rm exec
