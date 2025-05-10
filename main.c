@@ -2,8 +2,15 @@
 #include "constructeur.h"
 #include "afficher.h"
 #include "jeu.h"
+#include "son.h" 
+
+#include <windows.h>
+#include <mmsystem.h>
+#pragma comment(lib, "winmm.lib")
 
 int main() {
+    PlaySound("son/son.wav", NULL, SND_FILENAME | SND_ASYNC);
+    Sleep(3000); // Laisse le son jouer 3 secondes
     
     Jeu jeu = menu();
     int i=0;

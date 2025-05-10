@@ -91,6 +91,7 @@ void choixEquipe(Equipe *equipe, int numeroEquipe) {
 
     if (choix == 1) {
         *equipe = choixPersonnage(1);  // Joueur 1 choisit Fruits
+        
     } else {
         *equipe = choixPersonnage(2);  // Joueur 2 choisit Légumes
     }

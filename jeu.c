@@ -51,7 +51,7 @@ int finDuJeu(Jeu* jeu){
 
 
 
-
+//parcours les personnage, retourne l'index de celui qui a la plus grande vitesse au dessus de 50, retourne 1 sinon
 int trouverIndexVitesseMax(Perso* tab[]) {
     int maxIndex = -1;
     int maxVitesse = 100;  // seuil minimum pour jouer
@@ -65,6 +65,12 @@ int trouverIndexVitesseMax(Perso* tab[]) {
 
     return maxIndex;
 }
+
+
+
+
+
+//retourne le prochain personnage qui doit jouer a chaque appel
 int tour(Jeu* jeu) {
     int index;
 

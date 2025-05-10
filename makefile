@@ -3,7 +3,7 @@ all: exec
 constructeur.o: constructeur.c constructeur.h
 	gcc -c constructeur.c -o constructeur.o
 
-main.o: main.c constructeur.h afficher.h jeu.h capacite_speciale.h
+main.o: main.c constructeur.h afficher.h jeu.h capacite_speciale.h son.h
 	gcc -c main.c -o main.o
 
 afficher.o: afficher.c afficher.h constructeur.h
@@ -18,8 +18,11 @@ capacite_speciale.o: capacite_speciale.c capacite_speciale.h constructeur.h jeu.
 capacite_classique.o: capacite_classique.c capacite_classique.h constructeur.h
 	gcc -c capacite_classique.c -o capacite_classique.o
 
-exec: main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o
-	gcc main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o -o exec
+son.o: son.c son.h
+	gcc -c son.c -o son.o
+
+exec: main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o son.o
+	gcc main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o son.o -o exec -lwinmm
 
 clean:
 	rm exec
