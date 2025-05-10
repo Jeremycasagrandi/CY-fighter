@@ -26,6 +26,7 @@ typedef struct {
     int vitesse_max;
     int soin;
     Ult capacite;
+    int num;
 } Perso;
 
 
@@ -40,6 +41,7 @@ typedef struct {
 typedef struct {
     Equipe equipe1;
     Equipe equipe2;
+    Perso* tabE[6];
     
     
 } Jeu;

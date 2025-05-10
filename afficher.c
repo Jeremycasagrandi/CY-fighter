@@ -101,3 +101,18 @@ void afficherGagnant(Jeu jeu){
         printf("L'équipe %s a gagné",jeu.equipe2.nom);
     }
 }
+
+void afficherJaugeVitesse(Perso* perso) {
+    int max = 100;
+    int nbBarres = (perso->vitesse * 20) / max;
+    if (nbBarres > 20) nbBarres = 20;
+
+    printf("%-12s [", perso->nom);  // alignement du nom
+    for (int i = 0; i < nbBarres; i++) {
+        printf("#");
+    }
+    for (int i = nbBarres; i < 20; i++) {
+        printf("-");
+    }
+    printf("] %3d/100\n", perso->vitesse);
+}
