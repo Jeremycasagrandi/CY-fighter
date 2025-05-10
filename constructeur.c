@@ -79,23 +79,23 @@ Equipe choixPersonnage(int n) {
     return eq;
 }
 
-void choixEquipe(Equipe *equipe, int numeroEquipe) {
-    int choix;
-    int verif;
-    printf("=== Choix de l'équipe %d ===\n", numeroEquipe);
-    printf("1. Fruits\n");
-    printf("2. Légumes\n");
+// void choixEquipe(Equipe *equipe, int numeroEquipe) {
+//     int choix;
+//     int verif;
+//     printf("=== Choix de l'équipe %d ===\n", numeroEquipe);
+//     printf("1. Fruits\n");
+//     printf("2. Légumes\n");
 
-    choix=scanInt(1,2);
+//     choix=scanInt(1,2);
     
 
-    if (choix == 1) {
-        *equipe = choixPersonnage(1);  // Joueur 1 choisit Fruits
+//     if (choix == 1) {
+//         *equipe = choixPersonnage(1);  // Joueur 1 choisit Fruits
         
-    } else {
-        *equipe = choixPersonnage(2);  // Joueur 2 choisit Légumes
-    }
-}
+//     } else {
+//         *equipe = choixPersonnage(2);  // Joueur 2 choisit Légumes
+//     }
+// }
 
 Jeu multijoueur() {
     int choixJ1;
@@ -120,14 +120,7 @@ Jeu multijoueur() {
     jeu.equipe1=equipe1;
     jeu.equipe2=equipe2;
 
-    for (int i = 0; i < 3; i++) {
-        jeu.tabE[i] = &equipe1.membres[i];
-        jeu.tabE[i + 3] = &equipe2.membres[i];
-    }
-    for (int i = 0; i < 6; i++) {
-        jeu.tabE[i]->num=i;
-    }
-
+     
    
     // Affichage des équipes sélectionnées
 

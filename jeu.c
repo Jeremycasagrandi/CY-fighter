@@ -79,10 +79,12 @@ int tour(Jeu* jeu) {
     
     
     // 🔹 Affiche les jauges dès l'appel de la fonction
-    printf("\n=== Jauge de vitesse (début du tour) ===\n");
+    
+  
     afficherPlateau(jeu);
 
     index = trouverIndexVitesseMax(jeu->tabE);
+    
 
     // 🔹 Si personne ne peut encore jouer, on augmente les vitesses
     while (index == -1) {
@@ -90,8 +92,8 @@ int tour(Jeu* jeu) {
             jeu->tabE[i]->vitesse += jeu->tabE[i]->vitesse_max;
         }
         
-        printf("\n=== Jauge mise à jour ===\n");
         
+       
         afficherPlateau(jeu);
 
         sleep(1);  // pause d’une seconde avant nouveau test
@@ -99,7 +101,7 @@ int tour(Jeu* jeu) {
     }
 
     // 🔹 Quelqu’un peut jouer
-    printf("\n>>> %s joue ! <<<\n", jeu->tabE[index]->nom);
+    
     jeu->tabE[index]->vitesse = 0;
     return index;
 }

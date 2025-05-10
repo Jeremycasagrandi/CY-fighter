@@ -11,13 +11,16 @@
 int main() {
     
     
-    Jeu jeu = menu();
+    Jeu jeu = menu(&jeu);
+   
     int i=0;
     
 
     //fin du jeu vérifie si une equipe est morte (dans jeu.c)
     while(finDuJeu(&jeu)==0){
-        afficherPlateau(&jeu);
+        
+       
+        
        
         int indexJoueur = tour(&jeu);  
         
@@ -31,8 +34,7 @@ int main() {
         jeu.equipe1.membres[2].pdv=0;
         */
         
-
-
+        
         
 
         printf("\nÉquipe 1:\n");
