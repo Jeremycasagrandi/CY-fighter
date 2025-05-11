@@ -5,12 +5,15 @@
 #include "son.h" 
 #include "campagne.h"
 #include <unistd.h>
+#include <time.h>
+
 
 #include <windows.h>
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
 
 int main() {
+    srand(time(NULL)); 
     
     
     Jeu jeu;
