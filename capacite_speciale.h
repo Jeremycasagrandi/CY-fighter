@@ -5,6 +5,9 @@
 #include "constructeur.h"
 #include "capacite_classique.h"
 void ult(Jeu* jeu, Perso* perso_Ult, int idEquipe);
+void ajouter_effet(Perso* cible, int idEffet, int valeur, int duree);
+Equipe* equipe_alliee(Jeu* jeu, int idEquipe);
+Equipe* equipe_ennemie(Jeu* jeu, int idEquipe);
 
 void capacite0(Jeu* jeu, Perso* perso_Ult, int idEquipe);
 void capacite1(Jeu* jeu, Perso* perso_Ult, int idEquipe);

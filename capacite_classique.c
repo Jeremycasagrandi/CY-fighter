@@ -2,10 +2,11 @@
 #include "capacite_classique.h"
 #include "jeu.h"
 #include <stdlib.h>
-#include <unistd.h>
+#include <unistd.h>//sleep()
 
 
 // Capacité de soin
+//Vérifie si personnage est un soigneur
 int estSoigneur(Perso* p) {
     if ( p == NULL) {
         printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
@@ -13,7 +14,7 @@ int estSoigneur(Perso* p) {
     }
     return p->soin > 0;
 }
-//Eviter boucle infini dans soin()
+//Eviter boucle infini dans soin() (vérifie si au moins allié peut être soigné)
 int soinDisponible(Equipe* equipe) {
     if ( equipe == NULL) {
         printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
@@ -26,14 +27,14 @@ int soinDisponible(Equipe* equipe) {
     }
     return 0; // aucun soin possible
 }
-
+// Calcule les dégâts reçus après réduction par la défense
 int defense(Perso* cible, int degats) {
     if ( cible == NULL) {
         printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
         exit(1); 
     }
     int reduction=0;
-    //peut etre pour les capacités spéciales
+    //pour les capacités spéciales
     if (cible->defense < 0){
         cible->defense = 0;
     } 
@@ -44,14 +45,14 @@ int defense(Perso* cible, int degats) {
     reduction = (degats * cible->defense) / 100;
     return degats - reduction;
 }
-
+// Détermine si une attaque est esquivée
 int esquive(Perso* cible) {
     if ( cible == NULL) {
         printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
         exit(1); 
     }
     int chance=0;
-    //peut etre pour les capacités spéciales
+    // pour les capacités spéciales
     if (cible->agilite < 0){
         cible->agilite = 0;
     } 
@@ -60,9 +61,9 @@ int esquive(Perso* cible) {
     } 
 
     chance = rand() % 100;  
-    return chance < cible->agilite;
+    return chance < cible->agilite;// esquive réussie si la chance est inferieur à l'agilité
 }
-
+//Permet au joueur de choisir un allié vivant
 Perso* choix_perso_allie(Equipe* equipe) {
     if ( equipe == NULL) {
         printf("Erreur critique : pointeur NULL Arrêt du programme.\n");

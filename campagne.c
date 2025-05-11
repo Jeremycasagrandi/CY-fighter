@@ -7,8 +7,9 @@
 #include "jeu.h"
 #include "afficher.h"
 #include "campagne.h"
-#include <unistd.h>
+#include <unistd.h>// pour sleep
 
+// Fonction pour choisir un ennemi aléatoire encore vivant dans une équipe
 Perso* choix_perso_ennemi_robot(Equipe* equipe) {
     if ( equipe == NULL) {
         printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
@@ -22,7 +23,7 @@ Perso* choix_perso_ennemi_robot(Equipe* equipe) {
 
     return &equipe->membres[choix - 1];
 }
-
+// Fonction d'attaque effectuée par un personnage contrôlé par le robot
 void attaqueRobot(Jeu* jeu,Perso* perso, int idEquipe, int bonus_ult){
     if ( perso == NULL) {
         printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
@@ -30,7 +31,6 @@ void attaqueRobot(Jeu* jeu,Perso* perso, int idEquipe, int bonus_ult){
     }
     
     //choix de l'adversaire
-    int choix;
     Perso* cible;
     if (idEquipe == 1) {
         cible = choix_perso_ennemi_robot(&jeu->equipe2);
@@ -60,13 +60,13 @@ void attaqueRobot(Jeu* jeu,Perso* perso, int idEquipe, int bonus_ult){
     }
 }
 
+// Fonction qui joue automatiquement un tour pour un robot
 int choisirActionRobot(Jeu* jeu, int indexEquipe){
-    int choix;
     Equipe* equipeJoueur;
     int idEquipe;
     
     
-    
+    // détermine si c’est l’équipe 1 ou 2 en fonction de l’index
     if (indexEquipe < 3) { 
         equipeJoueur = &jeu->equipe1;
         idEquipe=1;
@@ -81,17 +81,16 @@ int choisirActionRobot(Jeu* jeu, int indexEquipe){
 
     
     Perso* perso = &equipeJoueur->membres[indexEquipe];
-    attaqueRobot(jeu, perso, idEquipe, 0);
-    mettreAJourEffets(perso);
+    attaqueRobot(jeu, perso, idEquipe, 0); // Le robot attaque
+    mettreAJourEffets(perso); // mise à jour des effets
     sleep(3);
 }
 
-
+// Choisit automatiquement une équipe de trois personnages
 Equipe choixPersonnageRobot(int n) {
     Perso persos[MAX_PERSOS];
     Ult capacites[MAX_CAPACITES]; 
     int nbPersos, nbCapacites;
-    int verif;
     chargerPersos(persos, capacites, "persos.txt", "capacites.txt", &nbPersos, &nbCapacites);
   
     int debut;
@@ -112,11 +111,10 @@ Equipe choixPersonnageRobot(int n) {
     }
     
  
-    char c;
+ 
  
 
     Equipe eq;
-    verif=0;
     eq.id=n;
 
     int pris[6] ;  // Pour vérifier si un personnage est déjà pris
@@ -129,7 +127,7 @@ Equipe choixPersonnageRobot(int n) {
        
         do{
             choix = rand() % 6;
-        }while(pris[choix]==1);
+        }while(pris[choix]==1);//pas encore sélectionné
             
         
 
@@ -168,12 +166,5 @@ Jeu campagne() {
     jeu.equipe1=equipe1;
     jeu.equipe2=equipe2;
 
-     
-   
-    // Affichage des équipes sélectionnées
-
-    afficherEquipe(&equipe1, "Équipe Joueur 1");
-  
-    afficherEquipe(&equipe2, "Équipe Joueur 2");
     return jeu;
 } 

@@ -108,44 +108,7 @@ void afficherPerso(Perso p) {
 }
 
 
-void afficherEquipe(Equipe *equipe, char *n) {
-    // if ( equipe == NULL) {
-    //     printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
-    //     exit(1); 
-    // }
-    // if ( n == NULL) {
-    //     printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
-    //     exit(1); 
-    // }
 
-
-
-    // printf("\n_______________________ %18s : %-8s                   \n", n, equipe->nom);
-
-
-    // // Affichage des noms avec une largeur fixe
-    // printf("| %-13s | %-13s | %-13s | %-13s |\n", " ",equipe->membres[0].nom, equipe->membres[1].nom, equipe->membres[2].nom);
-
-
-    // // Lignes de stats
-    // printf("| %-13s | %-13d | %-13d | %-13d |\n", "PDV max",equipe->membres[0].pdv_max, equipe->membres[1].pdv_max, equipe->membres[2].pdv_max);
-
-
-    // printf("| %-13s | %-13d | %-13d | %-13d |\n", "Attaque",equipe->membres[0].attaque, equipe->membres[1].attaque, equipe->membres[2].attaque);
-
-
-    // printf("| %-13s | %-13d | %-13d | %-13d |\n", "Défense",equipe->membres[0].defense, equipe->membres[1].defense, equipe->membres[2].defense);
-
-
-    // printf("| %-13s | %-13d | %-13d | %-13d |\n", "Vitesse",equipe->membres[0].vitesse, equipe->membres[1].vitesse, equipe->membres[2].vitesse);
-
-
-    // printf("| %-13s | %-13d | %-13d | %-13d |\n", "Agilité",equipe->membres[0].agilite, equipe->membres[1].agilite, equipe->membres[2].agilite);
-   
-    // printf("| %-13s | %-13d | %-13d | %-13d |\n", "Soin",equipe->membres[0].soin, equipe->membres[1].soin, equipe->membres[2].soin);
-   
-    // printf("|_______________________________________________________________|\n");
-}
 
 // Affiche la jauge de vie
 void afficherJaugeVie(Perso* perso) {

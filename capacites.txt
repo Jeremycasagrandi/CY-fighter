@@ -6,7 +6,7 @@
 5 VitamineB Restaure_des_PV_de_toute_l_équipe 0 2
 6 Feuille_Protectrice Un_allié_ne_subit_aucun_dégât 2 2
 7 Butternut Reduit_l_Attaque_de_tous_les_ennemis 1 3
-8 Larme Pleure_la_mort_dun_allie_et_tue_adversaire 0 2
+8 Larme Pleure_la_mort_dun_allie_bonus_30_dégâts_sinon10 0 2
 9 Explosion_popcorn Inflige_des_dégats_à_tous_les_ennemis 0 2
 10 Double Permet_à_un_allié_de_jouer_2_fois 0 1
 11 Regenere Restaure_les_PV 2 1
