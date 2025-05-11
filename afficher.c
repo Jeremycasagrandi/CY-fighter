@@ -166,12 +166,12 @@ void afficherPlateau(Jeu* jeu) {
         afficherJaugeVie(jeu->tabE[i]);
         printf("              ");
         afficherJaugeVie(jeu->tabE[i+3]);
-        printf("      |\n");
+        printf("        |\n");
         printf("|      ");
         afficherJaugeVitesse2(jeu->tabE[i]);
-        printf("              ");
+        printf("             ");
         afficherJaugeVitesse2(jeu->tabE[i+3]);
-        printf("      |\n");
+        printf("       |\n");
         printf("|                                                                                      |\n");
     }
     printf("|______________________________________________________________________________________|\n");
