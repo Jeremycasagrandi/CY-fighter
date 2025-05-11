@@ -32,5 +32,5 @@ exec: main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classi
 
 clean:
 	rm *.o
-	rm exec
+	rm exec.exe
 	
