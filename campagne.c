@@ -103,7 +103,7 @@ Equipe choixPersonnageRobot(int n) {
         debut = 6;
         fin = 12;
     }
-    clearScreen();
+    videTer();
     if (n == 1) {
         printf("\n--- Joueur 1 (Fruits) ---\n");
     } else {

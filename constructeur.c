@@ -24,7 +24,7 @@ Equipe choixPersonnage(int n) {
         debut = 6;
         fin = 12;
     }
-    clearScreen();
+    videTer();
     //affichage du joueur actuel
     if (n == 1) {
         printf("\n--- Joueur 1 (Fruits) ---\n");

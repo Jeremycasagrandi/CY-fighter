@@ -4,7 +4,7 @@
 #include "constructeur.h"
 
 void afficherMenu();
-void clearScreen();
+void videTer();
 void afficherChoixEq();
 void afficherPlateau(Jeu* jeu);
 Jeu menu();

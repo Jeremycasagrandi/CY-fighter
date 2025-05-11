@@ -7,7 +7,7 @@
 #include "string.h"
 #include "campagne.h"
 // vide le terminal et remonte le curseur en haut
-void clearScreen() {
+void videTer() {
     #ifdef _WIN32
         system("cls");
        
@@ -19,7 +19,7 @@ void clearScreen() {
 
 // Affiche le menu du début
 void afficherMenu() {
-    clearScreen();
+    videTer();
     printf(" _[MENU PRINCIPAL] _________________________________________\n");
     printf("|                                                           |\n");
     printf("|        1. Multijoueur        2. Campagne                  |\n");
@@ -30,7 +30,7 @@ void afficherMenu() {
 
 // Affiche le menu de choix équipe
 void afficherChoixEq(){
-    clearScreen();
+    videTer();
     printf(" _[CHOIX DE L'EQUIPE DU JOUEUR 1 ] _____________\n");
     printf("|                                               |\n");
     printf("|        1. Fruits        2. Légumes            |\n");
@@ -152,7 +152,7 @@ void afficherPlateau(Jeu* jeu) {
         printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
         exit(1); 
     }
-    clearScreen();
+    videTer();
     printf(" _____________\n");
     printf("|   TOUR %3d  |\n",jeu->tour);
     printf("|_____________|\n\n");
