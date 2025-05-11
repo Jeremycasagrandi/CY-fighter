@@ -77,7 +77,7 @@ Perso* choix_perso_allie(Equipe* equipe) {
         if (!estVivant(&equipe->membres[choix - 1])) {
             printf("Il est déjà mort. Vous ne pouvez plus le cibler.\n");
         }
-    } while (choix < 1 || choix > 3 || !estVivant(&equipe->membres[choix - 1]));
+    } while ( !estVivant(&equipe->membres[choix - 1]));
 
     return &equipe->membres[choix - 1];
 }
@@ -95,7 +95,7 @@ Perso* choix_perso_ennemi(Equipe* equipe) {
         if (!estVivant(&equipe->membres[choix - 1])) {
             printf("\n[Il est déjà mort. Vous ne pouvez plus l'attaquer.]\n");
         }
-    } while (choix < 1 || choix > 3 || !estVivant(&equipe->membres[choix - 1]));
+    } while ( !estVivant(&equipe->membres[choix - 1]));
 
     return &equipe->membres[choix - 1];
 }
