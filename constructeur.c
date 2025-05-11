@@ -180,10 +180,10 @@ fclose(fichierCapacites);
         persos[i].attaque = attaque;
         persos[i].defense = defense;
         persos[i].agilite = agilite;
-        persos[i].vitesse = 0;
+        persos[i].vitesse = 0;//pas le même vitesse
         persos[i].vitesse_max = vitesse;
         persos[i].soin=soin;
-
+        persos[i].nb_effets_actifs=0;
         // Associer la capacité au  personnage avec l'Id
         persos[i].capacite = capacites[i];
         i++;

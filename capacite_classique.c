@@ -63,7 +63,7 @@ Perso* choix_perso_allie(Equipe* equipe) {
 Perso* choix_perso_ennemi(Equipe* equipe) {
     int choix;
     do {
-        printf("Choisis un ennemi à attaquer : %s (1), %s (2), %s (3) : ",
+        printf("Choisis un ennemi : %s (1), %s (2), %s (3) : ",
             equipe->membres[0].nom, equipe->membres[1].nom, equipe->membres[2].nom);
         choix = scanInt(1, 3);
         if (!estVivant(&equipe->membres[choix - 1])) {
@@ -95,8 +95,8 @@ void attaque(Jeu* jeu,Perso* perso, int idEquipe, int bonus_ult){
     // calcule les dégats réels 
     int degats = defense(cible, perso->attaque)+bonus_ult;
     cible->pdv -= degats;
-    if (bonus_ult>0){
-        printf("%s subit %d dégâts (%d(attaque de base) +%d(ult)).\n", cible->nom, degats);
+    if (bonus_ult!=0){
+        printf("%s subit %d dégâts (%d (attaque de base) %d(ult)).\n", cible->nom, degats, perso->attaque,bonus_ult);
     }
     else{
         printf("%s subit %d dégâts .\n", cible->nom, degats);

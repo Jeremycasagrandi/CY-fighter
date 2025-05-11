@@ -3,6 +3,7 @@
 #include <stdio.h>
 #define MAX_PERSOS 20
 #define MAX_CAPACITES 20
+#define MAX_EFFETS 10
 
 typedef struct {
     int id;
@@ -13,6 +14,11 @@ typedef struct {
     int cooldown_max;
 } Ult;
 
+typedef struct {
+    int id;                
+    int valeur;            
+    int duree_restant;      
+} Effet;
 
 typedef struct {
     int id;
@@ -28,6 +34,8 @@ typedef struct {
     int soin;
     Ult capacite;
     int num;
+    Effet effets[MAX_EFFETS];
+    int nb_effets_actifs;
 } Perso;
 
 
