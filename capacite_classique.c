@@ -7,10 +7,18 @@
 
 // Capacité de soin
 int estSoigneur(Perso* p) {
+    if ( p == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     return p->soin > 0;
 }
 //Eviter boucle infini dans soin()
 int soinDisponible(Equipe* equipe) {
+    if ( equipe == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     for (int i = 0; i < 3; i++) {
         if (estVivant(&equipe->membres[i]) && (equipe->membres[i].pdv < equipe->membres[i].pdv_max)) {
             return 1; // Soin possible pour des persos encore vivant
@@ -20,6 +28,10 @@ int soinDisponible(Equipe* equipe) {
 }
 
 int defense(Perso* cible, int degats) {
+    if ( cible == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     int reduction=0;
     //peut etre pour les capacités spéciales
     if (cible->defense < 0){
@@ -34,6 +46,10 @@ int defense(Perso* cible, int degats) {
 }
 
 int esquive(Perso* cible) {
+    if ( cible == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     int chance=0;
     //peut etre pour les capacités spéciales
     if (cible->agilite < 0){
@@ -48,6 +64,10 @@ int esquive(Perso* cible) {
 }
 
 Perso* choix_perso_allie(Equipe* equipe) {
+    if ( equipe == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     int choix;
     do {
         printf("Choisis un allié : %s (1), %s (2), %s (3) : ",
@@ -62,6 +82,10 @@ Perso* choix_perso_allie(Equipe* equipe) {
 }
 
 Perso* choix_perso_ennemi(Equipe* equipe) {
+    if ( equipe == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     int choix;
     do {
         printf("\nChoisis un ennemi : %s (1), %s (2), %s (3) : ",
@@ -77,6 +101,10 @@ Perso* choix_perso_ennemi(Equipe* equipe) {
 
 //permet enlever des pv a un membre de l'équipe adverse
 void attaque(Jeu* jeu,Perso* perso, int idEquipe, int bonus_ult){
+    if ( perso == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     afficherPlateau(jeu);
     printf("\n%s attaque un membre de l'équipe adverse !\n", perso->nom);
     
@@ -114,6 +142,10 @@ void attaque(Jeu* jeu,Perso* perso, int idEquipe, int bonus_ult){
 }
 
 void soin(Jeu* jeu, Perso* perso, int idEquipe) {
+    if ( perso == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     // Choix de l'allié à soigner
     Perso* cible;
     Equipe* equipe;

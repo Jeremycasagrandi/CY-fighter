@@ -53,6 +53,7 @@ int finDuJeu(Jeu* jeu){
 
 
 int trouverIndexVitesseMax(Perso* tab[]) {
+    
     int maxIndex = -1;
     int maxVitesse = 100;  // seuil minimum pour jouer
 
@@ -112,14 +113,26 @@ int tour(Jeu* jeu) {
 
 
 int estVivant(Perso* p) {
+    if ( p == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     return p->pdv > 0;
 }
 
 int Aulti(Perso* perso) {
+    if ( perso == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     return perso->capacite.cooldown == 0;
 }
 
 int Aeffet(Perso* perso){
+    if ( perso == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     return perso->nb_effets_actifs > 0;
 }
 

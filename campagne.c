@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <stdlib.h>
 #include "constructeur.h"
 #include "jeu.h"
 #include "afficher.h"
@@ -9,6 +10,10 @@
 #include <unistd.h>
 
 Perso* choix_perso_ennemi_robot(Equipe* equipe) {
+    if ( equipe == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     int choix;
     do {
         choix=rand()%3;
@@ -19,6 +24,10 @@ Perso* choix_perso_ennemi_robot(Equipe* equipe) {
 }
 
 void attaqueRobot(Jeu* jeu,Perso* perso, int idEquipe, int bonus_ult){
+    if ( perso == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     
     //choix de l'adversaire
     int choix;

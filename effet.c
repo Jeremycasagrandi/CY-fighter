@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include "effet.h"
 void mettreAJourEffets(Perso* perso) {
+    if ( perso == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     for (int i = 0; i < perso->nb_effets_actifs;) {
         perso->effets[i].duree_restant--;
 
@@ -16,6 +20,10 @@ void mettreAJourEffets(Perso* perso) {
     }
 }
 void appliquerEffets(Perso* perso) {
+    if ( perso == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     for (int i = 0; i < perso->nb_effets_actifs; i++) {
         Effet* effet = &perso->effets[i];
         switch (effet->id) {
