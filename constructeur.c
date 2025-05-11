@@ -160,9 +160,8 @@ void chargerPersos(Perso persos[], Ult capacites[], const char* nomFichierPersos
         capacites[i].cooldown_max = cooldown;
         capacites[i].cooldown =cooldown;
         
-        // printf("Nom capacité : %s\n",capacites[i].nom);
-        // printf("i=%d\n",i);
-        // sleep(1);
+        
+        
         
         i++;
     }

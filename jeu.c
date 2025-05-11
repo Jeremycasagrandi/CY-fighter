@@ -211,8 +211,8 @@ void choisirAction(Jeu* jeu, int indexEquipe) {
         }
     }
     printf("1. Attaquer\n");
-    printf("2. Utiliser capacité ultime : %s\n",jeu->tabE[0]->capacite.nom);
-    printf("[DEBUG] Nom de capacité : '%s'\n", perso->capacite.nom);
+    printf("2. Utiliser capacité ultime : %s\n",perso->capacite.nom);
+    
     if (estSoigneur(perso)){
         if (soinDisponible(equipeJoueur)){
             printf("3. Soin\n");

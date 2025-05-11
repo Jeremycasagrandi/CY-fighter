@@ -4,7 +4,7 @@
 3 Jet_Acide Empoisonne_un_ennemi_10_pv_par_tour 4 0
 4 Carotenoïde Restaure_tous_les_pv_d_un_allié 0 0
 5 VitamineB Restaure_des_PV_de_toute_l_équipe 0 0
-6 Feuille_Protectrice Un allié_ne_subit_aucun_dégât 4 0
+6 Feuille_Protectrice Un_allié_ne_subit_aucun_dégât 4 0
 7 Butternut Reduit_la_defense_de_tous_les_ennemis 3 0
 8 Larme Pleure_la_mort_dun_allie_et_tue_adversaire 0 0
 9 Explosion_popcorn Inflige_des_dégats_à_tous_les_ennemis 4 0
