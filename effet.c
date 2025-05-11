@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "effet.h"
+#include <stdlib.h>
 void mettreAJourEffets(Perso* perso) {
     if ( perso == NULL) {
         printf("Erreur critique : pointeur NULL Arrêt du programme.\n");

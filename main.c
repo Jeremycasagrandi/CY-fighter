@@ -11,7 +11,7 @@
 
 
 
-#pragma comment(lib, "winmm.lib")
+
 
 int main() {
     srand(time(NULL)); 
