@@ -27,9 +27,10 @@ campagne.o: campagne.c campagne.h constructeur.h jeu.h afficher.h
 	gcc -c campagne.c -o campagne.o
 
 exec: main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o effet.o campagne.o
-	gcc main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o effet.o campagne.o -o exec -lwinmm
+	gcc main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o effet.o campagne.o -o exec 
 
 
 clean:
-	rm exec
 	rm *.o
+	rm exec
+	
