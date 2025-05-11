@@ -5,6 +5,7 @@
 #include "constructeur.h"
 #include "jeu.h"
 #include "afficher.h"
+#include <unistd.h>
 
 Equipe choixPersonnage(int n) {
     Perso persos[MAX_PERSOS];
@@ -159,7 +160,9 @@ void chargerPersos(Perso persos[], Ult capacites[], const char* nomFichierPersos
         capacites[i].cooldown_max = cooldown;
         capacites[i].cooldown =cooldown;
         
-
+        // printf("Nom capacité : %s\n",capacites[i].nom);
+        // printf("i=%d\n",i);
+        // sleep(1);
         
         i++;
     }
@@ -187,8 +190,10 @@ fclose(fichierCapacites);
         // Associer la capacité au  personnage avec l'Id
         persos[i].capacite = capacites[i];
         i++;
+        
+
     }
-    printf("Perso %s a capacité : %s\n", persos[i].nom, persos[i].capacite.nom);
+   
 
 
     *nbPersos = i;

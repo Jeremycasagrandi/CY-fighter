@@ -51,6 +51,7 @@ typedef struct {
     Equipe equipe1;
     Equipe equipe2;
     Perso* tabE[6];
+    int tour;
     
     
 } Jeu;

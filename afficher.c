@@ -128,65 +128,62 @@ void afficherEquipe(Equipe *equipe, char *n) {
     printf("|_______________________________________________________________|\n");
 }
 void afficherJaugeVie(Perso* perso) {
-    
+   
     int nbBarres = (perso->pdv * 20) / perso->pdv_max;
-    if (nbBarres > 20) nbBarres = 20;
+   
+    if (nbBarres > 20){
+        nbBarres = 20;
+    }
+
 
     printf("[");  // alignement du nom
-    for (int i = 0; i < nbBarres; i++) {
-        printf("O");
+    if( perso->pdv==0){
+        printf("  dans le composte  ");
     }
-    for (int i = nbBarres; i < 20; i++) {
-        printf("-");
+    else{
+        for (int i = 0; i < nbBarres; i++) {
+            printf("O");
     }
+        for (int i = nbBarres; i < 20; i++) {
+            printf(".");
+    }
+
+
+    }
+   
+   
     printf("] %3d/%d", perso->pdv, perso->pdv_max);
 }
 
 
 void afficherPlateau(Jeu* jeu) {
+    clearScreen();
+    printf(" _____________\n");
+    printf("|   TOUR %3d  |\n",jeu->tour);
+    printf("|_____________|\n\n");
 
-    printf("%15s %43s",jeu->tabE[0]->nom,jeu->tabE[3]->nom);
 
+
+    printf("%20s %43s",jeu->equipe1.nom,jeu->equipe2.nom);
     printf("\n");
-    afficherJaugeVie(jeu->tabE[0]);
-    printf("               ");
-    afficherJaugeVie(jeu->tabE[3]);
-    printf("\n");
-
-
-    afficherJaugeVitesse2(jeu->tabE[0]);
-    printf("              ");
-    afficherJaugeVitesse2(jeu->tabE[3]);
-    printf("\n");
-
-    printf("%15s %43s",jeu->tabE[1]->nom,jeu->tabE[4]->nom);
-    printf("\n");
-
-    afficherJaugeVie(jeu->tabE[1]);
-    printf("               ");
-    afficherJaugeVie(jeu->tabE[4]);
-    printf("\n");
-
-
-    afficherJaugeVitesse2(jeu->tabE[1]);
-    printf("              ");
-    afficherJaugeVitesse2(jeu->tabE[4]);
-    printf("\n");
-
-    printf("%15s %43s",jeu->tabE[2]->nom,jeu->tabE[5]->nom);
-    printf("\n");
-
-    afficherJaugeVie(jeu->tabE[2]);
-    printf("               ");
-    afficherJaugeVie(jeu->tabE[5]);
-    printf("\n");
-
-    afficherJaugeVitesse2(jeu->tabE[2]);
-    printf("              ");
-    afficherJaugeVitesse2(jeu->tabE[5]);
-    printf("\n\n\n\n\n");
-    
-
+    printf(" ______________________________________________________________________________________\n");
+    printf("|                                                                                      |\n");
+    for(int i=0;i<3;i++){
+        printf("|%20s %43s                      |\n",jeu->tabE[i]->nom,jeu->tabE[i+3]->nom);
+        printf("|      ");
+        afficherJaugeVie(jeu->tabE[i]);
+        printf("              ");
+        afficherJaugeVie(jeu->tabE[i+3]);
+        printf("      |\n");
+        printf("|      ");
+        afficherJaugeVitesse2(jeu->tabE[i]);
+        printf("              ");
+        afficherJaugeVitesse2(jeu->tabE[i+3]);
+        printf("      |\n");
+        printf("|                                                                                      |\n");
+    }
+    printf("|______________________________________________________________________________________|\n");
+   
 }
 
 
@@ -224,12 +221,13 @@ void afficherJaugeVitesse2(Perso* perso) {
     int nbBarres = (perso->vitesse * 20) / max;
     if (nbBarres > 20) nbBarres = 20;
 
+
     printf("[");  // alignement du nom
     for (int i = 0; i < nbBarres; i++) {
-        printf("#");
+        printf(">");
     }
     for (int i = nbBarres; i < 20; i++) {
-        printf("-");
+        printf(".");
     }
     printf("] %3d/100", perso->vitesse);
 }

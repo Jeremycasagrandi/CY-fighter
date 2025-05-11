@@ -3,6 +3,7 @@
 #include "afficher.h"
 #include "jeu.h"
 #include "son.h" 
+#include <unistd.h>
 
 #include <windows.h>
 #include <mmsystem.h>
@@ -13,11 +14,12 @@ int main() {
     
     Jeu jeu = menu(&jeu);
    
-    int i=0;
+    jeu.tour=1;
     
 
     //fin du jeu vérifie si une equipe est morte (dans jeu.c)
     while(finDuJeu(&jeu)==0){
+        printf("la capacité est %s",jeu.equipe1.membres[0].capacite.nom);
         
        
         
@@ -26,7 +28,7 @@ int main() {
         
         
         
-        printf(" Tour %d \n", i+1);
+        
         choisirAction(&jeu, indexJoueur); 
         /*test fin de partie 
         jeu.equipe1.membres[0].pdv=0;
@@ -37,16 +39,16 @@ int main() {
         
         
 
-        printf("\nÉquipe 1:\n");
-        for (int j = 0; j < 3; j++) {
-            printf("Membre %s: %d PV\n", jeu.equipe1.membres[j].nom, jeu.equipe1.membres[j].pdv);
-        }
+        // printf("\nÉquipe 1:\n");
+        // for (int j = 0; j < 3; j++) {
+        //     printf("Membre %s: %d PV\n", jeu.equipe1.membres[j].nom, jeu.equipe1.membres[j].pdv);
+        // }
         
-        printf("\nÉquipe 2:\n");
-        for (int j = 0; j < 3; j++) {
-            printf("Membre %s: %d PV\n", jeu.equipe2.membres[j].nom, jeu.equipe2.membres[j].pdv);
-        }
-        i++;
+        // printf("\nÉquipe 2:\n");
+        // for (int j = 0; j < 3; j++) {
+        //     printf("Membre %s: %d PV\n", jeu.equipe2.membres[j].nom, jeu.equipe2.membres[j].pdv);
+        // }
+        jeu.tour++;
         
         }
         afficherGagnant(jeu);
