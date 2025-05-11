@@ -267,7 +267,9 @@ void afficherJaugeVitesse2(Perso* perso) {
     }
     int max = 100;
     int nbBarres = (perso->vitesse * 20) / max;
-    if (nbBarres > 20) nbBarres = 20;
+    if (nbBarres > 20){
+        nbBarres = 20;
+    }
 
     printf("[");  
     for (int i = 0; i < nbBarres; i++) {
