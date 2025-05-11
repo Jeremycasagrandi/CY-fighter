@@ -6,7 +6,7 @@
 #include "jeu.h"
 #include "string.h"
 #include "campagne.h"
-
+// vide le terminal et remonte le curseur en haut
 void clearScreen() {
     #ifdef _WIN32
         system("cls");
@@ -17,7 +17,7 @@ void clearScreen() {
     #endif
 }
 
-
+// Affiche le menu du début
 void afficherMenu() {
     clearScreen();
     printf(" _[MENU PRINCIPAL] _________________________________________\n");
@@ -25,10 +25,10 @@ void afficherMenu() {
     printf("|        1. Multijoueur        2. Campagne                  |\n");
     printf("|                                                           |\n");
     printf("|___________________________________________________________|\n\n");
-   
     printf("Votre choix : ");
-   
 }
+
+// Affiche le menu de choix équipe
 void afficherChoixEq(){
     clearScreen();
     printf(" _[CHOIX DE L'EQUIPE DU JOUEUR 1 ] _____________\n");
@@ -36,22 +36,12 @@ void afficherChoixEq(){
     printf("|        1. Fruits        2. Légumes            |\n");
     printf("|                                               |\n");
     printf("|_______________________________________________|\n\n");
-   
     printf("Votre choix : ");
-   
-
-
-
-
 }
 
 
 
-
-
-
-
-
+// Initialise la création du jeu, solo sert a créer le jeu en fonction de si on est en mode multijoueur ou campagne, retourne l'adresse du jeu ()
 Jeu menu(Jeu* jeu, int* solo) {
     if ( jeu == NULL) {
         printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
@@ -63,9 +53,8 @@ Jeu menu(Jeu* jeu, int* solo) {
     }
 
     int choix;
-   
     int verif;
-   
+
     afficherMenu();
        
     choix=scanInt(1,2);
@@ -73,7 +62,6 @@ Jeu menu(Jeu* jeu, int* solo) {
          case 1 :
             *jeu=multijoueur(); 
             *solo=0;
-             // Appel de la fonction multijoueur
             break;
         case 2:
             *jeu = campagne();
@@ -82,7 +70,7 @@ Jeu menu(Jeu* jeu, int* solo) {
         default:
             printf("Choix invalide.\n");
     }
- 
+//  rempli le raccouci vers les perso dans tabE
     for (int i = 0; i < 3; i++) {
             jeu->tabE[i] =  &(jeu->equipe1.membres[i]);
             jeu->tabE[i + 3] = &(jeu->equipe2.membres[i]);
@@ -104,9 +92,8 @@ Jeu menu(Jeu* jeu, int* solo) {
 
 
 
-
+// Affiche les perso pendant la séléction de perso
 void afficherPerso(Perso p) {
-   
     printf("\n [Statistiques du personnage]________________________________________________________________________________________________\n");
     printf("| %17s : %-20s %s                                                                        |\n", "Nom", p.nom,"CAPACITE :");
     printf("| %17s : %-3d / %-78d                   |\n", "Points de vie", p.pdv, p.pdv_max);
@@ -121,66 +108,46 @@ void afficherPerso(Perso p) {
 }
 
 
-
-
-// void afficherCapacite(int n, Ult capacites[], int nbCapacites) {
-   
-//     for (int i = 0; i < nbCapacites; i++) {
-//         if (capacites[i].id == n) {
-//             printf("|____________________________________________________________|\n");
-//             printf("| %-18s :  %-13s                       |\n", "NOM" , capacites[i].nom);
-//             printf("| %-18s :  %-13s                       |\n","DESCRIPTION", capacites[i].description);
-//             printf("| %-18s :  %-13d tours                 |\n", "DUREE DE L'EFFET", capacites[i].duree_effet);
-//             printf("| %-18s :  %-13d tours                 |\n", "RECHARGE",capacites[i].cooldown);
-//             printf("|____________________________________________________________|\n");
-//             return;  
-//         }
-//     }
-// }
-
-
-
-
-
-
 void afficherEquipe(Equipe *equipe, char *n) {
-    if ( equipe == NULL) {
-        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
-        exit(1); 
-    }
-    if ( n == NULL) {
-        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
-        exit(1); 
-    }
+    // if ( equipe == NULL) {
+    //     printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+    //     exit(1); 
+    // }
+    // if ( n == NULL) {
+    //     printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+    //     exit(1); 
+    // }
 
 
 
-    printf("\n_______________________ %18s : %-8s                   \n", n, equipe->nom);
+    // printf("\n_______________________ %18s : %-8s                   \n", n, equipe->nom);
 
 
-    // Affichage des noms avec une largeur fixe
-    printf("| %-13s | %-13s | %-13s | %-13s |\n", " ",equipe->membres[0].nom, equipe->membres[1].nom, equipe->membres[2].nom);
+    // // Affichage des noms avec une largeur fixe
+    // printf("| %-13s | %-13s | %-13s | %-13s |\n", " ",equipe->membres[0].nom, equipe->membres[1].nom, equipe->membres[2].nom);
 
 
-    // Lignes de stats
-    printf("| %-13s | %-13d | %-13d | %-13d |\n", "PDV max",equipe->membres[0].pdv_max, equipe->membres[1].pdv_max, equipe->membres[2].pdv_max);
+    // // Lignes de stats
+    // printf("| %-13s | %-13d | %-13d | %-13d |\n", "PDV max",equipe->membres[0].pdv_max, equipe->membres[1].pdv_max, equipe->membres[2].pdv_max);
 
 
-    printf("| %-13s | %-13d | %-13d | %-13d |\n", "Attaque",equipe->membres[0].attaque, equipe->membres[1].attaque, equipe->membres[2].attaque);
+    // printf("| %-13s | %-13d | %-13d | %-13d |\n", "Attaque",equipe->membres[0].attaque, equipe->membres[1].attaque, equipe->membres[2].attaque);
 
 
-    printf("| %-13s | %-13d | %-13d | %-13d |\n", "Défense",equipe->membres[0].defense, equipe->membres[1].defense, equipe->membres[2].defense);
+    // printf("| %-13s | %-13d | %-13d | %-13d |\n", "Défense",equipe->membres[0].defense, equipe->membres[1].defense, equipe->membres[2].defense);
 
 
-    printf("| %-13s | %-13d | %-13d | %-13d |\n", "Vitesse",equipe->membres[0].vitesse, equipe->membres[1].vitesse, equipe->membres[2].vitesse);
+    // printf("| %-13s | %-13d | %-13d | %-13d |\n", "Vitesse",equipe->membres[0].vitesse, equipe->membres[1].vitesse, equipe->membres[2].vitesse);
 
 
-    printf("| %-13s | %-13d | %-13d | %-13d |\n", "Agilité",equipe->membres[0].agilite, equipe->membres[1].agilite, equipe->membres[2].agilite);
+    // printf("| %-13s | %-13d | %-13d | %-13d |\n", "Agilité",equipe->membres[0].agilite, equipe->membres[1].agilite, equipe->membres[2].agilite);
    
-    printf("| %-13s | %-13d | %-13d | %-13d |\n", "Soin",equipe->membres[0].soin, equipe->membres[1].soin, equipe->membres[2].soin);
+    // printf("| %-13s | %-13d | %-13d | %-13d |\n", "Soin",equipe->membres[0].soin, equipe->membres[1].soin, equipe->membres[2].soin);
    
-    printf("|_______________________________________________________________|\n");
+    // printf("|_______________________________________________________________|\n");
 }
+
+// Affiche la jauge de vie
 void afficherJaugeVie(Perso* perso) {
     if ( perso == NULL) {
         printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
@@ -193,33 +160,30 @@ void afficherJaugeVie(Perso* perso) {
         nbBarres = 20;
     }
 
-
-
-
     printf("[");  // alignement du nom
     if( perso->pdv==0){
         printf("  dans le composte  ");
     }
+
     else{
+
         for (int i = 0; i < nbBarres; i++) {
             printf("O");
-    }
+        }
+        
         for (int i = nbBarres; i < 20; i++) {
             printf(".");
-    }
-
-
-
+        }
 
     }
-   
    
     printf("] %3d/%d", perso->pdv, perso->pdv_max);
+
 }
 
 
 
-
+// Affiche le plateau de jeu
 void afficherPlateau(Jeu* jeu) {
     if ( jeu == NULL) {
         printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
@@ -229,12 +193,6 @@ void afficherPlateau(Jeu* jeu) {
     printf(" _____________\n");
     printf("|   TOUR %3d  |\n",jeu->tour);
     printf("|_____________|\n\n");
-
-
-
-
-
-
     printf("%20s %43s",jeu->equipe1.nom,jeu->equipe2.nom);
     printf("\n");
     printf(" ______________________________________________________________________________________\n");
@@ -258,14 +216,12 @@ void afficherPlateau(Jeu* jeu) {
 }
 
 
-
-
 //affiche l'équipe gagnante
 void afficherGagnant(Jeu jeu){
     int gagnant=finDuJeu(&jeu);
     afficherPlateau(&jeu);
     printf("\n\n");
-   
+
     char tab[50];
 if (gagnant == 1) {
     strcpy(tab, jeu.equipe1.nom);
@@ -303,7 +259,7 @@ if (gagnant == 1) {
 
 
 
-
+// Affiche la jauge de vitesse (s'apelle Vitesse2 car ça a remplacé Vitesse1)
 void afficherJaugeVitesse2(Perso* perso) {
     if ( perso == NULL) {
         printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
@@ -313,10 +269,7 @@ void afficherJaugeVitesse2(Perso* perso) {
     int nbBarres = (perso->vitesse * 20) / max;
     if (nbBarres > 20) nbBarres = 20;
 
-
-
-
-    printf("[");  // alignement du nom
+    printf("[");  
     for (int i = 0; i < nbBarres; i++) {
         printf(">");
     }

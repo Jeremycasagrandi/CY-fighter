@@ -7,6 +7,7 @@
 #include "afficher.h"
 #include <unistd.h>
 
+
 Equipe choixPersonnage(int n) {
     Perso persos[MAX_PERSOS];
     Ult capacites[MAX_CAPACITES]; 
