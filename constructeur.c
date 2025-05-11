@@ -9,15 +9,14 @@
 
 
 Equipe choixPersonnage(int n) {
-    Perso persos[MAX_PERSOS];
-    Ult capacites[MAX_CAPACITES]; 
-    int nbPersos, nbCapacites;
-    int verif;
+    Perso persos[MAX_PERSOS]; //tableau de tout les personnages
+    Ult capacites[MAX_CAPACITES]; //tableau de toutes les capacités
+    int nbPersos, nbCapacites; //nombre de persos et de capacité chargés depuis le fichier
     chargerPersos(persos, capacites, "persos.txt", "capacites.txt", &nbPersos, &nbCapacites);
   
     int debut;
     int fin;
-    // Pour choix entre fruit et légume
+    // Pour choix entre fruit et légume (intervalle de personnages selon fruit ou légume)
     if (n == 1) {
         debut = 0;
         fin = 6;
@@ -26,31 +25,19 @@ Equipe choixPersonnage(int n) {
         fin = 12;
     }
     clearScreen();
+    //affichage du joueur actuel
     if (n == 1) {
         printf("\n--- Joueur 1 (Fruits) ---\n");
     } else {
         printf("\n--- Joueur 2 (Légumes) ---\n");
     }
-    
+    //affichage des personnes disponibles pour ce joueur
     for (int i = debut; i < fin; i++) {
         printf("Personnage %d :\n ", i - debut); 
         afficherPerso(persos[i]);
     }
-    char c;
-    // do {
-    //     printf("Voulez vous voir les capacités? oui = o / non = n   ");
-        
-    //     verif=scanf(" %c", &c);
-    //     vide_buffer();
-    //     if (c=='o'||verif!=1){
-    //         for (int i = debut; i < fin; i++) {
-    //             afficherCapacite(persos[i].capacite.id, capacites, nbCapacites);
-    //         }
-    //     }
-    // } while ((c != 'n' && c != 'o') || verif != 1);
-
-    Equipe eq;
-    verif=0;
+    
+    Equipe eq; //equipe en cours de création
     eq.id=n;
 
     int pris[6] ;  // Pour vérifier si un personnage est déjà pris
@@ -64,14 +51,14 @@ Equipe choixPersonnage(int n) {
         do{
             printf("Choix %d (0 à 5) : ", i + 1);
             choix = scanInt(0,5);
-        }while(pris[choix]==1);
+        }while(pris[choix]==1); //regarde si le perso a déjà été pris 
             
         
 
-        pris[choix] = 1;//eviter doublo personnage
+        pris[choix] = 1;//eviter doublon de personnage
         eq.membres[i] = persos[debut + choix];
     }
-    // temporaire l'équipe doit pouvoir choisir son nom (consigne)
+    // l'équipe choisit son nom 
 
     printf("\n------------------------------------------------->\nChoisissez le nom de l'équipe (max 50 caractères) : ");
     if (scanf(" %50[^\n]", eq.nom) != 1) {
@@ -81,33 +68,10 @@ Equipe choixPersonnage(int n) {
 
    
 
-
-    // if (n == 1) {
-    //     strcpy(eq.nom, "Fruits");
-    // } else {
-    //     strcpy(eq.nom, "Légumes");
-    // }
-
     return eq;
 }
 
-// void choixEquipe(Equipe *equipe, int numeroEquipe) {
-//     int choix;
-//     int verif;
-//     printf("=== Choix de l'équipe %d ===\n", numeroEquipe);
-//     printf("1. Fruits\n");
-//     printf("2. Légumes\n");
 
-//     choix=scanInt(1,2);
-    
-
-//     if (choix == 1) {
-//         *equipe = choixPersonnage(1);  // Joueur 1 choisit Fruits
-        
-//     } else {
-//         *equipe = choixPersonnage(2);  // Joueur 2 choisit Légumes
-//     }
-// }
 
 Jeu multijoueur() {
     int choixJ1;
@@ -128,29 +92,23 @@ Jeu multijoueur() {
     // création des équipes
     Equipe equipe1 = choixPersonnage(choixJ1);
     Equipe equipe2 = choixPersonnage(choixJ2);
-    Jeu jeu;
+    Jeu jeu;// contient les deux équipes
     jeu.equipe1=equipe1;
     jeu.equipe2=equipe2;
-
-     
-   
-    // Affichage des équipes sélectionnées
-
-    afficherEquipe(&equipe1, "Équipe Joueur 1");
-  
-    afficherEquipe(&equipe2, "Équipe Joueur 2");
     return jeu;
 }
 
+//Charge les persos et capacités
 void chargerPersos(Perso persos[], Ult capacites[], const char* nomFichierPersos, const char* nomFichierCapacites, int *nbPersos, int *nbCapacites) {
+    //verification
     if ( nbPersos == NULL) {
         printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
         exit(1); 
-}
+    }
      if ( nbCapacites == NULL) {
         printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
         exit(1); 
-}
+    }
     FILE* fichierPersos = fopen(nomFichierPersos, "r");
     if (fichierPersos == NULL) {
         printf("Erreur ouverture fichier %s\n", nomFichierPersos);
@@ -171,6 +129,7 @@ void chargerPersos(Perso persos[], Ult capacites[], const char* nomFichierPersos
     int idCapacite, duree, cooldown;
     char nomCapacite[50], description[2000];
     int i = 0;
+    // Lit les capacités depuis le fichier et les stocke dans le tableau "capacites"
     while (fscanf(fichierCapacites, "%d %s %s %d %d", &idCapacite, nomCapacite, description, &duree, &cooldown) == 5) {
         capacites[i].id = idCapacite;
         strcpy(capacites[i].nom, nomCapacite);
@@ -184,7 +143,7 @@ void chargerPersos(Perso persos[], Ult capacites[], const char* nomFichierPersos
         
         i++;
     }
-
+// Enregistre le nombre total de capacités lues
 *nbCapacites = i;
 fclose(fichierCapacites);
 
@@ -193,6 +152,7 @@ fclose(fichierCapacites);
     int idPerso, pdv_max, attaque, defense, agilite, vitesse, soin;
     char nomPerso[50];
     i = 0;
+    // Lit les personnages depuis le fichier et les stocke dans le tableau "persos"
     while (fscanf(fichierPersos, "%d %s %d %d %d %d %d %d", &idPerso, nomPerso, &pdv_max, &attaque, &defense, &agilite, &vitesse,&soin) == 8) {
         persos[i].id = idPerso;
         strcpy(persos[i].nom, nomPerso);
@@ -201,11 +161,11 @@ fclose(fichierCapacites);
         persos[i].attaque = attaque;
         persos[i].defense = defense;
         persos[i].agilite = agilite;
-        persos[i].vitesse = 0;//pas le même vitesse
+        persos[i].vitesse = 0;//vitesse courante
         persos[i].vitesse_max = vitesse;
         persos[i].soin=soin;
         persos[i].nb_effets_actifs=0;
-        // Associer la capacité au  personnage avec l'Id
+        // Associe la capacité d’indice i au personnage d’indice i
         persos[i].capacite = capacites[i];
         i++;
         
