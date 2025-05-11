@@ -20,7 +20,7 @@ void videTer() {
 // Affiche le menu du début
 void afficherMenu() {
     videTer();
-    printf(" Bienvenue dans SALADE DE FRUIT LEGUME COMBAT : LA REVANCHE DES VEGETAUX\n\n");
+    printf(" Bienvenue dans SALADE DE FRUITS LEGUME COMBAT : LA REVANCHE DES VEGETAUX\n\n");
     printf(" _[MENU PRINCIPAL] _________________________________________\n");
     printf("|                                                           |\n");
     printf("|        1. Multijoueur        2. Campagne                  |\n");
