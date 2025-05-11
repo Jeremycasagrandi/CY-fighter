@@ -1,8 +1,14 @@
 #include <stdio.h>
 #include "capacite_speciale.h"
 #include <unistd.h>
+#include <stdlib.h>
 
 void ult(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    if ( perso_Ult == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
+
     printf("\n %d\n", perso_Ult->capacite.id);
     switch (perso_Ult->capacite.id) {
         case 0:  
@@ -48,6 +54,11 @@ void ult(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
 }
 
 void ajouter_effet(Perso* cible, int idEffet, int valeur, int duree) {
+    if ( cible == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
+
     Effet effet;
     effet.id = idEffet; //pour le switch case de Appliquer_Effet()
     effet.valeur = valeur; //valeur de l'effet
@@ -81,6 +92,11 @@ Equipe* equipe_ennemie(Jeu* jeu, int idEquipe) {
 
 
 void capacite0(Jeu* jeu, Perso* perso_Ult, int idEquipe) { //capacité de pasteque
+    if ( perso_Ult == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
+
     afficherPlateau(jeu);
     printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
     
@@ -99,6 +115,10 @@ void capacite0(Jeu* jeu, Perso* perso_Ult, int idEquipe) { //capacité de pasteq
 }
 
 void capacite1(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de noix de coco
+    if ( perso_Ult == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
     afficherPlateau(jeu);  
     printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
 
@@ -124,6 +144,10 @@ void capacite1(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de noix 
 }
 
 void capacite2(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de litchi
+    if ( perso_Ult == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
     afficherPlateau(jeu);  
     printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
 
@@ -140,6 +164,10 @@ void capacite2(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de litch
 }
 
 void capacite3(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de citron
+    if ( perso_Ult == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
     afficherPlateau(jeu);  
     printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
 
@@ -156,6 +184,10 @@ void capacite3(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de citro
 }
 
 void capacite4(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de prune
+    if ( perso_Ult == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
     afficherPlateau(jeu);  
     printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
     
@@ -170,6 +202,10 @@ void capacite4(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de prune
 }
 
 void capacite5(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de raisin
+    if ( perso_Ult == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
     //restaure à hauteur de 30% la vie des persos
     afficherPlateau(jeu); 
     printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
@@ -199,6 +235,10 @@ void capacite5(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de raisi
 }
 
 void capacite6(Jeu* jeu, Perso* perso_Ult, int idEquipe) { //capacité de salade
+    if ( perso_Ult == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
     // Rends invincible
     afficherPlateau(jeu);  
     printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
@@ -214,6 +254,10 @@ void capacite6(Jeu* jeu, Perso* perso_Ult, int idEquipe) { //capacité de salade
 }
 
 void capacite7(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de butternut
+    if ( perso_Ult == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
     afficherPlateau(jeu);  
     printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
     
@@ -232,6 +276,10 @@ void capacite7(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de butte
 }
 
 void capacite8(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de oignon
+    if ( perso_Ult == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
     afficherPlateau(jeu);  
     printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
     
@@ -252,6 +300,10 @@ void capacite8(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de oigno
 }
 
 void capacite9(Jeu* jeu, Perso* perso_Ult, int idEquipe) {  // capacité de maïs
+    if ( perso_Ult == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
     printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
     
     Equipe* ennemie = equipe_ennemie(jeu, idEquipe);
@@ -277,6 +329,10 @@ void capacite9(Jeu* jeu, Perso* perso_Ult, int idEquipe) {  // capacité de maï
 
 
 void capacite10(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de chou fleur
+    if ( perso_Ult == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
     afficherPlateau(jeu);
     printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
 
@@ -299,6 +355,10 @@ void capacite10(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de chou
 }
 
 void capacite11(Jeu* jeu, Perso* perso_Ult, int idEquipe) { // capacité de poireau
+    if ( perso_Ult == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
     afficherPlateau(jeu);
     printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
 

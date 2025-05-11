@@ -142,6 +142,14 @@ Jeu multijoueur() {
 }
 
 void chargerPersos(Perso persos[], Ult capacites[], const char* nomFichierPersos, const char* nomFichierCapacites, int *nbPersos, int *nbCapacites) {
+    if ( nbPersos == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
+     if ( nbCapacites == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+}
     FILE* fichierPersos = fopen(nomFichierPersos, "r");
     if (fichierPersos == NULL) {
         printf("Erreur ouverture fichier %s\n", nomFichierPersos);
