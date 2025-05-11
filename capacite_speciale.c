@@ -143,7 +143,7 @@ void capacite4(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
     } else {
         equipeAlliee = &jeu->equipe2;
     }
-    Perso* alliee = choix_perso_ennemi(equipeAlliee);
+    Perso* alliee = choix_perso_allie(equipeAlliee);
     alliee->pdv = alliee->pdv_max;
     perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
@@ -229,12 +229,57 @@ void capacite7(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
 }
 
 void capacite8(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    Equipe* equipeAlliee;
+
+    if (idEquipe == 1) {
+        equipeAlliee = &jeu->equipe1;
+    } else {
+        equipeAlliee = &jeu->equipe2;
+    }
+
+    int bonus_ult = 10; // par défaut si tous les alliés sont vivants
+
+    // Vérifie s'il y a un allié mort
+    for (int i = 0; i < 3; i++) {
+        if (equipeAlliee->membres[i].pdv <= 0) {
+            bonus_ult = 30;
+            break;
+        }
+    }
+
+    attaque(jeu, perso_Ult, idEquipe, bonus_ult);
     perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 void capacite9(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+
+    Equipe* equipeEnnemi;
+    if (idEquipe == 1) {
+        equipeEnnemi = &jeu->equipe2;
+    } else {
+        equipeEnnemi = &jeu->equipe1;
+    }
+
+    printf("%s déclenche une attaque de zone contre l'ennemie !\n", perso_Ult->nom);
+
+    for (int i = 0; i < 3; i++) {
+        Perso* ennemi = &equipeEnnemi->membres[i];
+
+        if (ennemi->pdv > 0) {
+            int degats = perso_Ult->attaque * 0.7;  
+            ennemi->pdv -= degats;
+
+            if (ennemi->pdv < 0) {
+                ennemi->pdv = 0;
+            }
+
+            printf("%s subit %d dégâts (reste %d PV).\n", ennemi->nom, degats, ennemi->pdv);
+        }
+    }
+
     perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
+
 
 void capacite10(Jeu* jeu, Perso* perso_Ult, int idEquipe) {//capacité du Chou-fleur
     

@@ -18,11 +18,15 @@ capacite_speciale.o: capacite_speciale.c capacite_speciale.h constructeur.h jeu.
 capacite_classique.o: capacite_classique.c capacite_classique.h constructeur.h
 	gcc -c capacite_classique.c -o capacite_classique.o
 
+effet.o: effet.c effet.h
+	gcc -c effet.c -o effet.o
+
 son.o: son.c son.h
 	gcc -c son.c -o son.o
 
-exec: main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o son.o
-	gcc main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o son.o -o exec -lwinmm
+exec: main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o effet.o son.o
+	gcc main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o effet.o son.o -o exec -lwinmm
+
 
 clean:
 	rm exec
