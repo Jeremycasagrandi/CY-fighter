@@ -53,6 +53,15 @@ void afficherChoixEq(){
 
 
 Jeu menu(Jeu* jeu, int* solo) {
+    if ( jeu == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
+    if ( solo == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
+
     int choix;
    
     int verif;
@@ -127,6 +136,15 @@ void afficherPerso(Perso p) {
 
 
 void afficherEquipe(Equipe *equipe, char *n) {
+    if ( equipe == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
+    if ( n == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
+
 
 
     printf("\n_______________________ %18s : %-8s                   \n", n, equipe->nom);
@@ -156,6 +174,10 @@ void afficherEquipe(Equipe *equipe, char *n) {
     printf("|_______________________________________________________________|\n");
 }
 void afficherJaugeVie(Perso* perso) {
+    if ( perso == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
    
     int nbBarres = (perso->pdv * 20) / perso->pdv_max;
    
@@ -191,6 +213,10 @@ void afficherJaugeVie(Perso* perso) {
 
 
 void afficherPlateau(Jeu* jeu) {
+    if ( jeu == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     clearScreen();
     printf(" _____________\n");
     printf("|   TOUR %3d  |\n",jeu->tour);
@@ -263,22 +289,6 @@ if (gagnant == 1) {
 }
 
 
-void afficherJaugeVitesse(Perso* perso) {
-    int max = 100;
-    int nbBarres = (perso->vitesse * 20) / max;
-    if (nbBarres > 20) nbBarres = 20;
-
-
-    printf("%-12s [", perso->nom);  // alignement du nom
-    for (int i = 0; i < nbBarres; i++) {
-        printf("#");
-    }
-    for (int i = nbBarres; i < 20; i++) {
-        printf("-");
-    }
-    printf("] %3d/100\n", perso->vitesse);
-}
-
 
 
 
@@ -287,6 +297,10 @@ void afficherJaugeVitesse(Perso* perso) {
 
 
 void afficherJaugeVitesse2(Perso* perso) {
+    if ( perso == NULL) {
+        printf("Erreur critique : pointeur NULL Arrêt du programme.\n");
+        exit(1); 
+    }
     int max = 100;
     int nbBarres = (perso->vitesse * 20) / max;
     if (nbBarres > 20) nbBarres = 20;
