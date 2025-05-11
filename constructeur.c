@@ -73,7 +73,11 @@ Equipe choixPersonnage(int n) {
     // temporaire l'équipe doit pouvoir choisir son nom (consigne)
 
     printf("\n------------------------------------------------->\nChoisissez le nom de l'équipe (max 50 caractères) : ");
-    scanf(" %50[^\n]", eq.nom);
+    if (scanf(" %50[^\n]", eq.nom) != 1) {
+        printf("Erreur : valeurs invalides ou incomplètes.\n");
+        exit(1);
+    }
+
    
 
 

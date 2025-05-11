@@ -3,7 +3,7 @@ all: exec
 constructeur.o: constructeur.c constructeur.h
 	gcc -c constructeur.c -o constructeur.o
 
-main.o: main.c constructeur.h afficher.h jeu.h capacite_speciale.h son.h campagne.h
+main.o: main.c constructeur.h afficher.h jeu.h capacite_speciale.h  campagne.h
 	gcc -c main.c -o main.o
 
 afficher.o: afficher.c afficher.h constructeur.h campagne.h
@@ -21,14 +21,13 @@ capacite_classique.o: capacite_classique.c capacite_classique.h constructeur.h
 effet.o: effet.c effet.h
 	gcc -c effet.c -o effet.o
 
-son.o: son.c son.h
-	gcc -c son.c -o son.o
+
 
 campagne.o: campagne.c campagne.h constructeur.h jeu.h afficher.h
 	gcc -c campagne.c -o campagne.o
 
-exec: main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o effet.o son.o campagne.o
-	gcc main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o effet.o son.o campagne.o -o exec -lwinmm
+exec: main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o effet.o campagne.o
+	gcc main.o constructeur.o afficher.o jeu.o capacite_speciale.o capacite_classique.o effet.o campagne.o -o exec -lwinmm
 
 
 clean:
