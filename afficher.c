@@ -5,7 +5,7 @@
 #include "afficher.h"
 #include "jeu.h"
 #include "string.h"
-
+#include "campagne.h"
 
 void clearScreen() {
     // #ifdef _WIN32
@@ -52,7 +52,7 @@ void afficherChoixEq(){
 
 
 
-Jeu menu(Jeu* jeu) {
+Jeu menu(Jeu* jeu, int* solo) {
     int choix;
    
     int verif;
@@ -62,10 +62,13 @@ Jeu menu(Jeu* jeu) {
     choix=scanInt(1,2);
     switch (choix) {
          case 1 :
-            *jeu=multijoueur();  // Appel de la fonction multijoueur
+            *jeu=multijoueur(); 
+            *solo=0;
+             // Appel de la fonction multijoueur
             break;
         case 2:
-            //campagne();
+            *jeu = campagne();
+            *solo=1;
             break;
         default:
             printf("Choix invalide.\n");

@@ -4,6 +4,7 @@
         "stdio.h": "c",
         "afficher.h": "c",
         "capacite_classique.C": "cpp",
-        "mmsystem.h": "c"
+        "mmsystem.h": "c",
+        "windows.h": "c"
     }
 }

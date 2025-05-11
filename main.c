@@ -3,6 +3,7 @@
 #include "afficher.h"
 #include "jeu.h"
 #include "son.h" 
+#include "campagne.h"
 #include <unistd.h>
 
 #include <windows.h>
@@ -12,7 +13,9 @@
 int main() {
     
     
-    Jeu jeu = menu(&jeu);
+    Jeu jeu;
+    int solo=0;  
+    jeu = menu(&jeu, &solo);
    
     jeu.tour=1;
      //test fin de partie 
@@ -33,8 +36,18 @@ int main() {
         
         
         
-        
-        choisirAction(&jeu, indexJoueur); 
+        if (solo==1){
+            if(indexJoueur<3){
+                choisirAction(&jeu, indexJoueur);
+            }
+            else{
+                choisirActionRobot(&jeu, indexJoueur);
+            }
+        }
+        else{
+            choisirAction(&jeu, indexJoueur);
+        }
+         
       
         
         
@@ -52,6 +65,6 @@ int main() {
         // }
         jeu.tour++;
         
-        }
-        afficherGagnant(jeu);
     }
+        afficherGagnant(jeu);
+}
