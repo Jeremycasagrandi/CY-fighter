@@ -1,10 +1,10 @@
 # CY-fighter
 
-# 🥗 SALADE DE FRUIT LÉGUME COMBAT : LA REVANCHE DES VÉGÉTAUX !
+# 🥗 SALADE DE FRUITS LÉGUMES COMBAT : LA REVANCHE DES VÉGÉTAUX !
 
 
 
-Bienvenue dans **SALADE DE FRUIT LÉGUME COMBAT : LA REVANCHE DES VÉGÉTAUX !**  
+Bienvenue dans **SALADE DE FRUITS LÉGUMES COMBAT : LA REVANCHE DES VÉGÉTAUX !**  
 Un jeu tactique où fruits et légumes s’affrontent dans le potager !
 
 ---
