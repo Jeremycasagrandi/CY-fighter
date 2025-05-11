@@ -15,6 +15,11 @@ int main() {
     Jeu jeu = menu(&jeu);
    
     jeu.tour=1;
+     //test fin de partie 
+        jeu.equipe1.membres[0].pdv=0;
+        jeu.equipe1.membres[1].pdv=0;
+        jeu.equipe1.membres[2].pdv=0;
+     
     
 
     //fin du jeu vérifie si une equipe est morte (dans jeu.c)
@@ -30,11 +35,8 @@ int main() {
         
         
         choisirAction(&jeu, indexJoueur); 
-        /*test fin de partie 
-        jeu.equipe1.membres[0].pdv=0;
-        jeu.equipe1.membres[1].pdv=0;
-        jeu.equipe1.membres[2].pdv=0;
-        */
+      
+        
         
         
         

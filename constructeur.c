@@ -71,11 +71,17 @@ Equipe choixPersonnage(int n) {
         eq.membres[i] = persos[debut + choix];
     }
     // temporaire l'équipe doit pouvoir choisir son nom (consigne)
-    if (n == 1) {
-        strcpy(eq.nom, "Fruits");
-    } else {
-        strcpy(eq.nom, "Légumes");
-    }
+
+    printf("\n------------------------------------------------->\nChoisissez le nom de l'équipe (max 50 caractères) : ");
+    scanf(" %50[^\n]", eq.nom);
+   
+
+
+    // if (n == 1) {
+    //     strcpy(eq.nom, "Fruits");
+    // } else {
+    //     strcpy(eq.nom, "Légumes");
+    // }
 
     return eq;
 }
