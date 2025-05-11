@@ -16,9 +16,9 @@ int main() {
    
     jeu.tour=1;
      //test fin de partie 
-        jeu.equipe1.membres[0].pdv=0;
-        jeu.equipe1.membres[1].pdv=0;
-        jeu.equipe1.membres[2].pdv=0;
+        // jeu.equipe1.membres[0].pdv=0;
+        // jeu.equipe1.membres[1].pdv=0;
+        // jeu.equipe1.membres[2].pdv=0;
      
     
 
