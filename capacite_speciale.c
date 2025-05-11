@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "capacite_speciale.h"
+#include <unistd.h>
 
 void ult(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
     printf("\n %d\n", perso_Ult->capacite.id);
@@ -55,6 +56,8 @@ void ult(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
 
 
 void capacite0(Jeu* jeu, Perso* perso_Ult, int idEquipe) { //capacité de pasteque
+    afficherPlateau(jeu);
+    printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
     
     Equipe* equipeEnnemi;
     if (idEquipe == 1) {
@@ -67,10 +70,16 @@ void capacite0(Jeu* jeu, Perso* perso_Ult, int idEquipe) { //capacité de pasteq
     Perso* cible = choix_perso_ennemi(equipeEnnemi);
     cible->vitesse=0;
 
+    printf("\n\nLa vitesse de %s est remis à 0\n",cible->nom);
+    sleep(3);
+
     perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 void capacite1(Jeu* jeu, Perso* perso_Ult, int idEquipe) {//capacite de noix de coco
+    afficherPlateau(jeu);
+    printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
+
     Equipe* equipeAlliee;
     if (idEquipe == 1) {
         equipeAlliee = &jeu->equipe1;
@@ -78,7 +87,7 @@ void capacite1(Jeu* jeu, Perso* perso_Ult, int idEquipe) {//capacite de noix de 
         equipeAlliee = &jeu->equipe2;
     }
 
-    printf("%s renforce la défense de toute son équipe pour %d tours .\n", perso_Ult->nom, perso_Ult->capacite.duree_effet);
+    printf("\n%s renforce la défense de toute son équipe pour %d tours .\n", perso_Ult->nom, perso_Ult->capacite.duree_effet);
     //parcourt tout les persos de l'équipe
     for (int i = 0; i < 3; i++) {
         Perso* allie = &equipeAlliee->membres[i];
@@ -91,16 +100,21 @@ void capacite1(Jeu* jeu, Perso* perso_Ult, int idEquipe) {//capacite de noix de 
 
             //Ajoute à l'indice suivant de la liste des effets actifs le buff de defense
             allie->effets[allie->nb_effets_actifs++] = buffDefense;
-            printf("%s aura 30 en défense pour %d tours.\n", allie->nom, buffDefense.duree_restant);
+            printf("\n[%s aura 30 en défense pour %d tours.]\n", allie->nom, buffDefense.duree_restant);
 
         }
+        
     }
+    sleep(3);
 
     perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 
 void capacite2(Jeu* jeu, Perso* perso_Ult, int idEquipe) {//capacité de litchi
+    afficherPlateau(jeu);
+    printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
+
     //3 attaques normales /2
     int bonus_ult = 0;
     bonus_ult-=perso_Ult->attaque/2;
@@ -111,6 +125,9 @@ void capacite2(Jeu* jeu, Perso* perso_Ult, int idEquipe) {//capacité de litchi
 }
 
 void capacite3(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    afficherPlateau(jeu);
+    printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
+    
     Equipe* cible;
     if (idEquipe == 1) {
         cible = &jeu->equipe2;
@@ -118,7 +135,7 @@ void capacite3(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
         cible = &jeu->equipe1;
     }
 
-    printf("%s utilise une attaque de poison !\n", perso_Ult->nom);
+    
 
     // Choix de l' ennemi
     Perso* adversaire = choix_perso_ennemi(cible);  
@@ -131,12 +148,16 @@ void capacite3(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
     acide.duree_restant = perso_Ult->capacite.duree_effet;
 
     adversaire->effets[adversaire->nb_effets_actifs++] = acide;
-    printf("%s est empoisonné pour %d tours !\n", adversaire->nom, acide.duree_restant);
+    printf("\n%s est empoisonné pour %d tours !\n", adversaire->nom, acide.duree_restant);
+    sleep(3);
 
     perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 void capacite4(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    afficherPlateau(jeu);
+    printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
+    
     Equipe* equipeAlliee;
     if (idEquipe == 1) {
         equipeAlliee = &jeu->equipe1;
@@ -146,10 +167,15 @@ void capacite4(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
     Perso* alliee = choix_perso_allie(equipeAlliee);
     alliee->pdv = alliee->pdv_max;
     perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
+    printf("Les PV de %s sont restaurés\n",alliee->nom);
+    sleep(3);
 }
 
 void capacite5(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
     Equipe* equipeAlliee;
+    afficherPlateau(jeu);
+    printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
+    
 
     if (idEquipe == 1) {
         equipeAlliee = &jeu->equipe1;
@@ -157,7 +183,7 @@ void capacite5(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
         equipeAlliee = &jeu->equipe2;
     }
 
-    printf("%s soigne toute son équipe !\n", perso_Ult->nom);
+    printf("\n%s soigne toute son équipe !\n", perso_Ult->nom);
     //Parcourt les 3 membres de l'équipe
     for (int i = 0; i < 3; i++) {
         Perso* allie = &equipeAlliee->membres[i];
@@ -170,14 +196,17 @@ void capacite5(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
                 allie->pdv = allie->pdv_max;  
             }
 
-            printf("%s récupère %d PV (actuellement %d/%d).\n", allie->nom, soin, allie->pdv, allie->pdv_max);
+            printf("\n%s récupère %d PV (actuellement %d/%d).\n", allie->nom, soin, allie->pdv, allie->pdv_max);
         }
     }
-
+    sleep(3);
     perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 void capacite6(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    afficherPlateau(jeu);
+    printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
+    
     Equipe* equipeAlliee;
 
     if (idEquipe == 1) {
@@ -191,7 +220,7 @@ void capacite6(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
 
 
 
-    printf("%s rend %s invincible pour %d tours !\n", perso_Ult->nom, cible->nom, perso_Ult->capacite.duree_effet);
+    printf("\n%s rend %s invincible pour %d tours !\n", perso_Ult->nom, cible->nom, perso_Ult->capacite.duree_effet);
 
     Effet invincible;
     invincible.id = 4;  
@@ -201,9 +230,13 @@ void capacite6(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
     cible->effets[cible->nb_effets_actifs++] = invincible;
 
     perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
+    sleep(3);
 }
 
 void capacite7(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    afficherPlateau(jeu);
+    printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
+    
     Equipe* cible;
     if (idEquipe == 1) {
         cible = &jeu->equipe2;
@@ -212,7 +245,7 @@ void capacite7(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
     }
 
     Perso* adversaire = choix_perso_ennemi(cible);
-    printf("%s affaiblit %s pour %d tours !\n", perso_Ult->nom, adversaire->nom, perso_Ult->capacite.duree_effet);
+    printf("\n%s affaiblit %s pour %d tours !\n", perso_Ult->nom, adversaire->nom, perso_Ult->capacite.duree_effet);
 
     // affaiblissement
     Effet affaiblissement;
@@ -226,9 +259,13 @@ void capacite7(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
     
 
     perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
+    sleep(3);
 }
 
 void capacite8(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    afficherPlateau(jeu);
+    printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
+    
     Equipe* equipeAlliee;
 
     if (idEquipe == 1) {
@@ -252,6 +289,9 @@ void capacite8(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
 }
 
 void capacite9(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    afficherPlateau(jeu);
+    printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
+    
 
     Equipe* equipeEnnemi;
     if (idEquipe == 1) {
@@ -260,7 +300,7 @@ void capacite9(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
         equipeEnnemi = &jeu->equipe1;
     }
 
-    printf("%s déclenche une attaque de zone contre l'ennemie !\n", perso_Ult->nom);
+    printf("\n%s déclenche une attaque de zone contre l'ennemie !\n", perso_Ult->nom);
 
     for (int i = 0; i < 3; i++) {
         Perso* ennemi = &equipeEnnemi->membres[i];
@@ -273,15 +313,22 @@ void capacite9(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
                 ennemi->pdv = 0;
             }
 
-            printf("%s subit %d dégâts (reste %d PV).\n", ennemi->nom, degats, ennemi->pdv);
+            printf("\n%s subit %d dégâts\n", ennemi->nom, degats);
+           // printf("\n%s subit %d dégâts (reste %d PV).\n", ennemi->nom, degats, ennemi->pdv);
         }
     }
+    sleep(3);
 
     perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
 }
 
 
 void capacite10(Jeu* jeu, Perso* perso_Ult, int idEquipe) {//capacité du Chou-fleur
+
+    afficherPlateau(jeu);
+    printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
+    
+
     
 
     Equipe* equipeAlliee;
@@ -301,6 +348,10 @@ void capacite10(Jeu* jeu, Perso* perso_Ult, int idEquipe) {//capacité du Chou-f
 }
 
 void capacite11(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
+    afficherPlateau(jeu);
+    printf("%s utilise sa capacité ultime !\n", perso_Ult->nom);
+    
+
     Equipe* equipeAlliee;
 
     if (idEquipe == 1) {
@@ -313,11 +364,11 @@ void capacite11(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
     Perso* cible = choix_perso_allie(equipeAlliee);
 
     if ( cible->pdv <= 0) {
-        printf("Aucun allié valide pour le soin.\n");
+        printf("\nAucun allié valide pour le soin.\n");
         return;
     }
 
-    printf("%s lance un effet de soin progressif sur %s pour %d tours !\n", perso_Ult->nom, cible->nom, perso_Ult->capacite.duree_effet);
+    printf("\n%s lance un effet de soin progressif sur %s pour %d tours !\n", perso_Ult->nom, cible->nom, perso_Ult->capacite.duree_effet);
 
     Effet soin;
     soin.id = 3;  
@@ -325,7 +376,8 @@ void capacite11(Jeu* jeu, Perso* perso_Ult, int idEquipe) {
     soin.duree_restant = perso_Ult->capacite.duree_effet;
 
     cible->effets[cible->nb_effets_actifs++] = soin;
-    printf("%s recevra %d PV par tour pendant %d tours.\n", cible->nom, soin.valeur, soin.duree_restant);
+    printf("\n%s recevra %d PV par tour pendant %d tours.\n", cible->nom, soin.valeur, soin.duree_restant);
  
     perso_Ult->capacite.cooldown = perso_Ult->capacite.cooldown_max;
+    sleep(3);
 }

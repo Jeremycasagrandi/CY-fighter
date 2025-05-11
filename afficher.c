@@ -8,13 +8,13 @@
 #include "campagne.h"
 
 void clearScreen() {
-    // #ifdef _WIN32
-    //     system("cls");
+    #ifdef _WIN32
+        system("cls");
        
-    // #else
-    //     printf("\033[2J\033[H");
-    //     fflush(stdout);
-    // #endif
+    #else
+        printf("\033[2J\033[H");
+        fflush(stdout);
+    #endif
 }
 
 

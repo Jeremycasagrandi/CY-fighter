@@ -2,7 +2,7 @@
 #include "constructeur.h"
 #include "afficher.h"
 #include "jeu.h"
-#include "son.h" 
+
 #include "campagne.h"
 #include <unistd.h>
 #include <time.h>
@@ -30,7 +30,7 @@ int main() {
 
     //fin du jeu vérifie si une equipe est morte (dans jeu.c)
     while(finDuJeu(&jeu)==0){
-        printf("la capacité est %s",jeu.equipe1.membres[0].capacite.nom);
+        
         
        
         

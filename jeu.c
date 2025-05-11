@@ -142,47 +142,52 @@ void choisirAction(Jeu* jeu, int indexEquipe) {
     
     Perso* perso = &equipeJoueur->membres[indexEquipe];
 
-    printf("\nC'est au tour de %s !\n", perso->nom);
+    printf("\n------------------------------>\n");
+    printf("C'est au tour de %s !\n\n", perso->nom);
+
+
+
     if (Aeffet(perso)) {
         appliquerEffets(perso);
-        printf("%d",perso->defense);
+        
         if (perso->pdv <= 0) {
             printf("%s est mort à cause de l'acide\n", perso->nom);
             return;
         }
     }
+    
     printf("1. Attaquer\n");
-    printf("2. Utiliser capacité ultime : %s\n",perso->capacite.nom);
+    printf("2. Utiliser capacité ultime : %s (%s)       [disponible dans %d tour(s)]\n",perso->capacite.nom,perso->capacite.description,perso->capacite.cooldown);
     
     if (estSoigneur(perso)){
         if (soinDisponible(equipeJoueur)){
             printf("3. Soin\n");
         }
         else{
-            printf("3.Soin indisponible (PV max pour les persos)\n");
+            printf("3. Soin [indisponible (PV max pour les persos)]\n");
         }
     }
     
     
     do {
-        printf("Choisissez une action : ");
+        printf("\nChoisissez une action : ");
         choix = scanInt(1,3);
         if (choix == 2 && !Aulti(perso)) {
-            printf("Capacité ultime indisponible.  %d tours restants.\n", perso->capacite.cooldown);
+            printf("\n[Capacité ultime indisponible.  %d tours restants.]\n", perso->capacite.cooldown);
         }
     } while ((choix < 1 || choix > 3) || (choix == 2 && !Aulti(perso))||(choix == 3 && (!estSoigneur(perso) || !soinDisponible(equipeJoueur))));
     switch (choix) {
         case 1:  // Attaque
-            printf("%s attaque un membre de l'équipe adverse !\n", perso->nom);
+            
             attaque(jeu, perso, idEquipe, 0);
             break;
         
         case 2:  // Utiliser capacité ultime
-            printf("%s utilise sa capacité ultime !\n", perso->nom);
+            
             ult(jeu, perso, idEquipe);
             break;
         case 3:
-            printf("%s soigne un allié !\n", perso->nom);
+            
             soin(jeu, perso, idEquipe);
             
             break;

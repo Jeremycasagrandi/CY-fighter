@@ -2,6 +2,7 @@
 #include "capacite_classique.h"
 #include "jeu.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 
 // Capacité de soin
@@ -63,11 +64,11 @@ Perso* choix_perso_allie(Equipe* equipe) {
 Perso* choix_perso_ennemi(Equipe* equipe) {
     int choix;
     do {
-        printf("Choisis un ennemi : %s (1), %s (2), %s (3) : ",
+        printf("\nChoisis un ennemi : %s (1), %s (2), %s (3) : ",
             equipe->membres[0].nom, equipe->membres[1].nom, equipe->membres[2].nom);
         choix = scanInt(1, 3);
         if (!estVivant(&equipe->membres[choix - 1])) {
-            printf("Il est déjà mort. Vous ne pouvez plus l'attaquer.\n");
+            printf("\n[Il est déjà mort. Vous ne pouvez plus l'attaquer.]\n");
         }
     } while (choix < 1 || choix > 3 || !estVivant(&equipe->membres[choix - 1]));
 
@@ -76,6 +77,8 @@ Perso* choix_perso_ennemi(Equipe* equipe) {
 
 //permet enlever des pv a un membre de l'équipe adverse
 void attaque(Jeu* jeu,Perso* perso, int idEquipe, int bonus_ult){
+    afficherPlateau(jeu);
+    printf("\n%s attaque un membre de l'équipe adverse !\n", perso->nom);
     
     //choix de l'adversaire
     int choix;
@@ -88,7 +91,7 @@ void attaque(Jeu* jeu,Perso* perso, int idEquipe, int bonus_ult){
 
     // vérifie si l'attaque est esquivée
     if (esquive(cible)) {
-        printf("%s a esquivé l'attaque !\n", cible->nom);
+        printf("\n%s a esquivé l'attaque !\n", cible->nom);
         return;
     }
 
@@ -96,21 +99,26 @@ void attaque(Jeu* jeu,Perso* perso, int idEquipe, int bonus_ult){
     int degats = defense(cible, perso->attaque)+bonus_ult;
     cible->pdv -= degats;
     if (bonus_ult!=0){
-        printf("%s subit %d dégâts (%d (attaque de base) %d(ult)).\n", cible->nom, degats, perso->attaque,bonus_ult);
+        printf("\n%s subit %d dégâts\n", cible->nom, degats);
+        //printf("\n%s subit %d dégâts (%d (attaque de base) %d(ult)).\n", cible->nom, degats, perso->attaque,bonus_ult);
     }
     else{
-        printf("%s subit %d dégâts .\n", cible->nom, degats);
+        printf("\n%s subit %d dégâts .\n", cible->nom, degats);
     }
 
     if (cible->pdv < 0) {
         cible->pdv = 0;  // Pour éviter d'afficher des pdv négatifs
     }
+    
+    sleep(3);
 }
 
 void soin(Jeu* jeu, Perso* perso, int idEquipe) {
     // Choix de l'allié à soigner
     Perso* cible;
     Equipe* equipe;
+    afficherPlateau(jeu);
+    printf("\n%s soigne un allié !\n\n", perso->nom);
 
     if (idEquipe == 1) {
         equipe = &jeu->equipe1;
@@ -121,13 +129,15 @@ void soin(Jeu* jeu, Perso* perso, int idEquipe) {
     do {
         cible = choix_perso_allie(equipe);
         if (cible->pdv == cible->pdv_max) {
-            printf("Ce personnage a déjà tous ses points de vie.\n");
+            printf("\n[Ce personnage a déjà tous ses points de vie.]\n");
         }
     } while (cible->pdv == cible->pdv_max);
 
     // Applique le soin
     cible->pdv += perso->soin;
+    printf("\n%s est soigné de %d Pv\n\n", cible->nom,perso->soin);
 
+    sleep(3);
     
     if (cible->pdv > cible->pdv_max) {
         cible->pdv = cible->pdv_max;

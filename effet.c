@@ -37,7 +37,7 @@ void appliquerEffets(Perso* perso) {
 
 
             case 2:  // Bonus de défense
-                printf("%s a 50 de défense ", perso->nom);
+                printf("[%s a 50 de défense]\n\n", perso->nom);
                 perso->defense = effet->valeur;
                 break;
 

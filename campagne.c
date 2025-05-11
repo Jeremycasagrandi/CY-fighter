@@ -32,6 +32,7 @@ void attaqueRobot(Jeu* jeu,Perso* perso, int idEquipe, int bonus_ult){
     // vérifie si l'attaque est esquivée
     if (esquive(cible)) {
         printf("%s a esquivé l'attaque !\n", cible->nom);
+        
         return;
     }
 
@@ -56,6 +57,7 @@ int choisirActionRobot(Jeu* jeu, int indexEquipe){
     int idEquipe;
     
     
+    
     if (indexEquipe < 3) { 
         equipeJoueur = &jeu->equipe1;
         idEquipe=1;
@@ -65,10 +67,14 @@ int choisirActionRobot(Jeu* jeu, int indexEquipe){
         idEquipe=2;
     }
 
+    printf("\n------------------------------>\n");
+    printf("C'est au tour de %s !\n\n",equipeJoueur->membres[indexEquipe].nom );
+
     
     Perso* perso = &equipeJoueur->membres[indexEquipe];
     attaqueRobot(jeu, perso, idEquipe, 0);
     mettreAJourEffets(perso);
+    sleep(3);
 }
 
 
