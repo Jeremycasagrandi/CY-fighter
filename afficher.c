@@ -90,6 +90,14 @@ Jeu menu(Jeu* jeu, int* solo) {
         for (int i = 0; i < 6; i++) {
             jeu->tabE[i]->num=i;
     }
+
+
+    for (int i = 0; i < 6; i++) {
+    if (jeu->tabE[i] == NULL) {
+        printf("Erreur : tabE[%d] est NULL. Arrêt du programme.\n", i);
+        exit(1);
+    }
+}
         return *jeu;
    
 }
@@ -105,7 +113,7 @@ void afficherPerso(Perso p) {
     printf("| %17s : %-30d %-18s :  %-50s|\n", "Attaque", p.attaque, "NOM" , p.capacite.nom);
     printf("| %17s : %-30d %-18s :  %-50s|\n", "Défense", p.defense,"DESCRIPTION", p.capacite.description);
     printf("| %17s : %-30d %-18s :  %d tours                                           |\n", "Agilité", p.agilite,"DUREE DE L'EFFET", p.capacite.duree_effet);
-    printf("| %17s : %-30d %-18s :  %d tours                                           |\n", "Vitesse", p.vitesse,"RECHARGE",p.capacite.cooldown);
+    printf("| %17s : %-30d %-18s :  %d tours                                           |\n", "Vitesse", p.vitesse_max,"RECHARGE",p.capacite.cooldown);
     if (estSoigneur(&p)) {
         printf("| %17s : %-88d               |\n", "Soin", p.soin);
     }
